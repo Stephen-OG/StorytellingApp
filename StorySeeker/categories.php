@@ -73,6 +73,8 @@ session_start();
     <link rel="stylesheet" href="../css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="../img/favicon.png?3">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -543,27 +545,33 @@ session_start();
     //         // swal(nameProduct, "is added to cart !", "success");
     //     });
     // });
+    
 
     $('.block2-btn-addwishlist').each(function() {
         //e.preventDefault();
         var nameProduct = $('.block2-btn-addwishlist').parent().parent().parent().find('.block2-name').html();
-        $('.block2-btn-addwishlist').on('click', function() {
+        $('.block2-btn-addwishlist').on('click', function(e) {
+            e.preventDefault();
             var sid = $(this).parent().parent().parent().find('.story_id').val();
             var uid = $(this).parent().parent().parent().find('.user_id').val();
             console.log(sid);
             console.log(uid);
             console.log('I got here');
-            var dataBody = {
-                sid: sid,
-                uid: uid
-            }
-            console.log(sid);
+            // var dataBody = {
+            //     sid: sid,
+            //     uid: uid
+            // }
+            var jsondata = [{"sid":sid, "uid":uid}];
+            console.log(jsondata);
+            var jsonarray = JSON.parse(jsondata);
+            console.log(jsonarray);
             $.ajax({
                 type: "POST",
                 //Try these 2 URLs
                 // url: '../ss_functions.php',
                 url: 'savestory.php',
-                data: dataBody.serialize(),
+                dataType: 'json',
+                data: dataBody,
                 success: function(response) {
                     var jsonData = JSON.parse(response);
 
