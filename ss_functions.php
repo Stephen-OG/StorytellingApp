@@ -33,34 +33,67 @@ function seeker_stories($con){
 }
 
 
-function save_story($con){
+function save_story($sid, $uid){
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-        $sid = $_POST['story_id'];
-        $uid = $_POST['user_id'];
+        echo "<script>alert('i entered this php file')</script>"; 
+        // $sid = $_POST['story_id'];
+        // $uid = $_POST['user_id'];
 
         if(empty($sid) && empty($uid))
 			{
 				//echo "<script>alert('There are no fields to generate a report')</script>"; 
-                echo "<script src'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('There are no fields to generate a report', '', 'error')</script>";
+                echo json_encode(array('success' => 3));
+                //echo "<script src'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('There are no fields to generate a report', '', 'error')</script>";
 			}
 
-            $result = mysqli_query($con, "SELECT * FROM user_saved_stories WHERE StoryId='$sid' ");
+            $result = mysqli_query(mysqli_connect("localhost","root","","storytellingdb"), "SELECT * FROM user_saved_stories WHERE StoryId='$sid' ");
             if (mysqli_num_rows($result) > 0 ){
 
                 //header("Location:index.php?error=story already exists")
-                echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Story added', '', 'success')</script>";
+                //echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Story added', '', 'success')</script>";
+                echo json_encode(array('success' => 2));
 
             }
             else 
             {
-                mysqli_query($con, "INSERT INTO user_saved_stories (UserId,StoryId) VALUES ('$uid','$sid')");
+                mysqli_query(mysqli_connect("localhost","root","","storytellingdb"), "INSERT INTO user_saved_stories (UserId,StoryId) VALUES ('$uid','$sid')");
                 //echo "<script>alert('story added')</script>";
-                echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Story added', '', 'success')</script>";
+                //echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Story added', '', 'success')</script>";
+                echo json_encode(array('success' => 1));
 
             }
     }
     
 }
+//before code
+// function save_story($con){
+//     if($_SERVER['REQUEST_METHOD'] == "POST"){
+//         $sid = $_POST['story_id'];
+//         $uid = $_POST['user_id'];
+
+//         if(empty($sid) && empty($uid))
+// 			{
+// 				//echo "<script>alert('There are no fields to generate a report')</script>"; 
+//                 echo "<script src'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('There are no fields to generate a report', '', 'error')</script>";
+// 			}
+
+//             $result = mysqli_query($con, "SELECT * FROM user_saved_stories WHERE StoryId='$sid' ");
+//             if (mysqli_num_rows($result) > 0 ){
+
+//                 //header("Location:index.php?error=story already exists")
+//                 echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Story added', '', 'success')</script>";
+
+//             }
+//             else 
+//             {
+//                 mysqli_query($con, "INSERT INTO user_saved_stories (UserId,StoryId) VALUES ('$uid','$sid')");
+//                 //echo "<script>alert('story added')</script>";
+//                 echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Story added', '', 'success')</script>";
+
+//             }
+//     }
+    
+// }
 
 function saved_stories($con){
     if(isset($_SESSION['id']))

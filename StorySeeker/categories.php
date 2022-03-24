@@ -12,7 +12,7 @@ session_start();
 
       //$my_stories = my_stories($con);
       $get_story_by_category = get_stories_by_category($con);
-      $save_story = save_story($con);
+      //$save_story = save_story($sid, $uid);
 
 ?>
 
@@ -87,7 +87,7 @@ session_start();
                     <form id="searchForm" class="ml-auto d-none d-lg-block">
                         <div class="form-group position-relative mb-0">
                             <p class="mb-0">Hi <?php echo $check_login['FirstName'];?>, &nbsp;</p>
-                            
+
                         </div>
                     </form>
                 </li>
@@ -109,11 +109,12 @@ session_start();
                 </li>
 
                 <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img id="profileImage"
-                            src="" style="max-width: 2.5rem;"
+                        aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img
+                            id="profileImage" src="" style="max-width: 2.5rem;"
                             class="img-fluid rounded-circle shadow"></a>
                     <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong
-                                class="d-block text-uppercase headings-font-family"><?php echo $check_login['FirstName'];?> <?php echo $check_login['LastName'];?></strong><small>Story
+                                class="d-block text-uppercase headings-font-family"><?php echo $check_login['FirstName'];?>
+                                <?php echo $check_login['LastName'];?></strong><small>Story
                                 Seeker</small></a>
                         <div class="dropdown-divider"></div>
                         <!-- <a data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item">Write a Story</a> -->
@@ -123,9 +124,11 @@ session_start();
                         <a href="categories.php?category=history" class="dropdown-item">Categories</a>
                         <a href="savedstories.php" class="dropdown-item">Saved Stories</a>
                         <a href="readstories.php" class="dropdown-item">Read Stories</a>
-                        <a data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item">Change Password</a>
+                        <a data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item">Change
+                            Password</a>
                         <!-- <a data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item">Write A Story</a> -->
-                        <a data-toggle="modal" data-target="#deleteAccountModal" class="dropdown-item">Delete Account</a>
+                        <a data-toggle="modal" data-target="#deleteAccountModal" class="dropdown-item">Delete
+                            Account</a>
                         <div class="dropdown-divider"></div>
                         <a href="signin.php" class="dropdown-item">Logout</a>
                     </div>
@@ -135,13 +138,12 @@ session_start();
     </header>
 
     <!-- Title Page -->
-    <section class="bg-title-page p-t-50 p-b-40 flex-col-c-m"
-        style="background-image: url(../fashe/images/bookbanner3.jpg); position: relative; 
+    <section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(../fashe/images/bookbanner3.jpg); position: relative; 
        ">
-        <h2 class="l-text2 t-center" >
+        <h2 class="l-text2 t-center">
             Stories
         </h2>
-        <p class="m-text13 t-center" >
+        <p class="m-text13 t-center">
             New Arrivals Stories Collection 2022
         </p>
     </section>
@@ -207,7 +209,7 @@ session_start();
                                 </a>
                             </li>
                         </ul>
-<br>
+                        <br>
                         <!-- Filters -->
                         <h4 class="m-text14 p-b-32">
                             Filters
@@ -217,7 +219,8 @@ session_start();
                             <div class="m-text15 p-b-17">
                                 Location
                             </div>
-                            <div class="autocomplete-container" id="autocomplete-container" style="border: 1px solid #6c757d;">
+                            <div class="autocomplete-container" id="autocomplete-container"
+                                style="border: 1px solid #6c757d;">
 
                             </div>
 
@@ -225,7 +228,7 @@ session_start();
                                 <input id="storyLocation" type="text" class="form-control" style="border-style:solid !important; border-color: #6c757d !important;">
                             </div> -->
 
-                           
+
 
                             <div class="flex-sb-m flex-w p-t-16">
                                 <div class="w-size11">
@@ -235,13 +238,13 @@ session_start();
                                     </button>
                                 </div>
 
-                                
+
                             </div>
                         </div>
 
-                        
 
-                        
+
+
                     </div>
                 </div>
 
@@ -249,7 +252,7 @@ session_start();
                     <!--  -->
                     <div class="flex-sb-m flex-w p-b-35">
                         <div class="flex-w">
-                            
+
                         </div>
 
                         <span class="s-text8 p-t-5 p-b-5">
@@ -259,47 +262,52 @@ session_start();
 
                     <!-- Product -->
                     <div class="row">
-                    <?php
+                        <?php
                                     $i=1;
                                     while($row = mysqli_fetch_array($get_story_by_category) )
                                     {
                                 ?>
                         <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
-                        <form method="post">   
-                            <!-- Block2 -->
-                            <div class="block2">
-                                    <input type="hidden" class="story_id" name="story_id" value="<?php echo $row["id"]; ?>">
-                                    <input type="hidden" class="user_id" name="user_id" value="<?php echo $check_login["id"]; ?>">
+                            <form method="post">
+                                <!-- Block2 -->
+                                <div class="block2">
+                                    <input type="hidden" class="story_id" name="sid" value="<?php echo $row["id"]; ?>">
+                                    <input type="hidden" class="user_id" name="uid"
+                                        value="<?php echo $check_login["id"]; ?>">
 
-                                <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-                                    <img src="../uploads/<?php echo $row['ImageName'];?>" alt="IMG-PRODUCT">
+                                    <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+                                        <img src="../uploads/<?php echo $row['ImageName'];?>" alt="IMG-PRODUCT">
 
-                                    <div class="block2-overlay trans-0-4">
-                                        <button type="submit" name="btnsavestory" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                            <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                            <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                        </button>
+                                        <div class="block2-overlay trans-0-4">
+                                            <button type="submit" name="btnsavestory"
+                                                class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                                <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                                <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                                            </button>
 
-                                        <div class="block2-btn-addcart w-size1 trans-0-4">
-                                            <!-- Button -->
-                                            <a href="storydetail.php?storyid=<?php echo $row["id"];?>" style="text-decoration: none;" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                                Read Now
-                                            </a>
+                                            <div class="block2-btn-addcart w-size1 trans-0-4">
+                                                <!-- Button -->
+                                                <a href="storydetail.php?storyid=<?php echo $row["id"];?>"
+                                                    style="text-decoration: none;"
+                                                    class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+                                                    Read Now
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="block2-txt p-t-20">
-                                    <a href="storydetail.php?storyid=<?php echo $row["id"];?>" class="block2-name dis-block s-text3 p-b-5">
-                                    <?php echo $row["Title"]; ?>
-                                    </a>
+                                    <div class="block2-txt p-t-20">
+                                        <a href="storydetail.php?storyid=<?php echo $row["id"];?>"
+                                            class="block2-name dis-block s-text3 p-b-5">
+                                            <?php echo $row["Title"]; ?>
+                                        </a>
 
-                                    <span class="block2-price m-text6 p-r-5">
-                                    <?php echo $row["Category"]; ?>
-                                    </span>
+                                        <span class="block2-price m-text6 p-r-5">
+                                            <?php echo $row["Category"]; ?>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
                         </div>
                         <?php
                             $i++;
@@ -308,7 +316,7 @@ session_start();
 
                     <!-- Pagination -->
                     <div class="pagination flex-m flex-w p-t-26">
-                        <a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination" >1</a>
+                        <a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
                         <a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
                     </div>
                 </div>
@@ -363,20 +371,24 @@ session_start();
                     <form method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="img">Profile Picture</label>
-                            <input type="hidden" id="imagename" name="imagename" value="<?php echo $check_login['ProfileImage'];?>"  class="form-control" required>
+                            <input type="hidden" id="imagename" name="imagename"
+                                value="<?php echo $check_login['ProfileImage'];?>" class="form-control" required>
 
                             <input type="file" id="fileSelect" name="photo" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Firstname</label>
-                            <input type="text" name="firstname" value="<?php echo $check_login['FirstName'];?>" id="firstname" class="form-control">
+                            <input type="text" name="firstname" value="<?php echo $check_login['FirstName'];?>"
+                                id="firstname" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Lastname</label>
-                            <input type="text" name="lastname" value="<?php echo $check_login['LastName'];?>" id="lastname" class="form-control">
+                            <input type="text" name="lastname" value="<?php echo $check_login['LastName'];?>"
+                                id="lastname" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="updateProfile" id="btneditprofile" value="update" class="btn btn-primary">
+                            <input type="submit" name="updateProfile" id="btneditprofile" value="update"
+                                class="btn btn-primary">
                         </div>
                     </form>
                 </div>
@@ -454,52 +466,51 @@ session_start();
     <!-- Javascript Files -->
     <script src="../address.js"></script>
     <script>
-        document.getElementById("storyLocation").addEventListener("submit", function (e) {
-          e.preventDefault()
-          /*
-             the longitude and latitude values are automatically returned by the api and that's what you need 
-             to store in your database. 
-            
-             You can then use the stored lon and lat values to retrieve the address later. check the getAddress.js file,
-             you will see how that works. 
-            
-             
-            */
-            let longitude = chosenLocation.lon;
-          let latitude = chosenLocation.lat;
-          console.log(longitude);
-          let location = chosenLocation.city + ", " + chosenLocation.county;
-          console.log(location);
-    
-          //let category = document.getElementById("categoryChosen").value;
-          let url = "{% url 'search' 3 99999999999 99999999991 22222222222 %}"
-          // url = url.replace("3", category)
-          // url = url.replace("99999999999", longitude)
-          // url = url.replace("99999999991", latitude)
-          // url = url.replace("22222222222", location)
-          // document.location.href = url;
-    
-          var data = {
+    document.getElementById("storyLocation").addEventListener("submit", function(e) {
+        e.preventDefault()
+        /*
+           the longitude and latitude values are automatically returned by the api and that's what you need 
+           to store in your database. 
+          
+           You can then use the stored lon and lat values to retrieve the address later. check the getAddress.js file,
+           you will see how that works. 
+          
            
+          */
+        let longitude = chosenLocation.lon;
+        let latitude = chosenLocation.lat;
+        console.log(longitude);
+        let location = chosenLocation.city + ", " + chosenLocation.county;
+        console.log(location);
+
+        //let category = document.getElementById("categoryChosen").value;
+        let url = "{% url 'search' 3 99999999999 99999999991 22222222222 %}"
+        // url = url.replace("3", category)
+        // url = url.replace("99999999999", longitude)
+        // url = url.replace("99999999991", latitude)
+        // url = url.replace("22222222222", location)
+        // document.location.href = url;
+
+        var data = {
+
             storyLocation: location,
-            
-    
-          }
-    
-    
-          console.log(data);
-          if (data.storyLocation != "") {
+
+
+        }
+
+
+        console.log(data);
+        if (data.storyLocation != "") {
             createStory();
-    
-          }
-          else {
-    
+
+        } else {
+
             swal("Not yet", "All fields are required!", "warning");
-    
-          }
-         
-        })
-      </script>
+
+        }
+
+    })
+    </script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
@@ -510,10 +521,10 @@ session_start();
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/select2/select2.min.js"></script>
     <script type="text/javascript">
-        $(".selection-1").select2({
-            minimumResultsForSearch: 20,
-            dropdownParent: $('#dropDownSelect1')
-        });
+    $(".selection-1").select2({
+        minimumResultsForSearch: 20,
+        dropdownParent: $('#dropDownSelect1')
+    });
     </script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/slick/slick.min.js"></script>
@@ -525,32 +536,66 @@ session_start();
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/sweetalert/sweetalert.min.js"></script>
     <script type="text/javascript">
-        // $('.block2-btn-addcart').each(function () {
-        //     var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-        //     $(this).on('click', function () {
-        //         // swal(nameProduct, "is added to cart !", "success");
-        //     });
-        // });
+    // $('.block2-btn-addcart').each(function () {
+    //     var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+    //     $(this).on('click', function () {
+    //         // swal(nameProduct, "is added to cart !", "success");
+    //     });
+    // });
 
-        $('.block2-btn-addwishlist').each(function () {
-            var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-            $(this).on('click', function () {
-                swal(nameProduct, "is added to saved stories!", "success");
-            });
+    $('.block2-btn-addwishlist').each(function(e) {
+        e.preventDefault();
+        var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+        var sid = $(this).parent().parent().parent().find('.story_id').val();
+        var uid = $(this).parent().parent().parent().find('.user_id').val();
+        var dataBody = {
+            sid: sid,
+            uid: uid
+        }
+        $(this).on('click', function() {
+            $.ajax({
+                type: "POST",
+                //Try these 2 URLs
+                url: '../ss_functions.php',
+                //url: 'savestory.php',
+                data: dataBody.serialize(),
+                success: function(response) {
+                    var jsonData = JSON.parse(response);
+
+                    // user is logged in successfully in the back-end
+                    // let's redirect
+                    if (jsonData.success == "1") {
+                        swal(nameProduct, "is added to saved stories!", "success");
+                    }
+                    if (jsonData.success == "2") {
+                        swal(nameProduct, "is already in your saved stories!", "warning");
+                    } else {
+                        swal(nameProduct,
+                            "could not be added to saved stories! Try again later",
+                            "erroe");
+                    }
+                }
+            })
+
         });
-        //use alternative image if Profile Image not found
-        document.getElementById('profileImage').src="../uploads/<?php echo $check_login['ProfileImage'];?>";
-        document.getElementById('profileImage').onload = function() { 
-        }
-        document.getElementById('profileImage').onerror = function() { 
-        document.getElementById('profileImage').src="../img/avatar-6.jpg"; 
-        }
+        //before code
+        // var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+        // $(this).on('click', function () {
+        //     swal(nameProduct, "is added to saved stories!", "success");
+        // });
+    });
+    //use alternative image if Profile Image not found
+    document.getElementById('profileImage').src = "../uploads/<?php echo $check_login['ProfileImage'];?>";
+    document.getElementById('profileImage').onload = function() {}
+    document.getElementById('profileImage').onerror = function() {
+        document.getElementById('profileImage').src = "../img/avatar-6.jpg";
+    }
     </script>
 
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/parallax100/parallax100.js"></script>
     <script type="text/javascript">
-        $('.parallax100').parallax100();
+    $('.parallax100').parallax100();
     </script>
     <!--===============================================================================================-->
     <script src="../fashe/js/main.js"></script>
