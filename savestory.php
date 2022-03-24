@@ -1,5 +1,5 @@
 <?php
- if($_SERVER['REQUEST_METHOD'] == "POST"){
+ if(issetgi['REQUEST_METHOD'] == "POST"){
     // $sid = $_POST['story_id'];
     // $uid = $_POST['user_id'];
 
