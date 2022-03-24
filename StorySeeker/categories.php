@@ -279,8 +279,7 @@ session_start();
                                         <img src="../uploads/<?php echo $row['ImageName'];?>" alt="IMG-PRODUCT">
 
                                         <div class="block2-overlay trans-0-4">
-                                            <button type="submit" name="btnsavestory"
-                                                class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                            <button type="submit" name="btnsavestory" class="block2-btn-addwishlist hov-pointer trans-0-4">
                                                 <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                                 <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                             </button>
@@ -543,8 +542,8 @@ session_start();
     //     });
     // });
 
-    $('.block2-btn-addwishlist').each(function(e) {
-        e.preventDefault();
+    $('.block2-btn-addwishlist').each(function() {
+        
         var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
         var sid = $(this).parent().parent().parent().find('.story_id').val();
         var uid = $(this).parent().parent().parent().find('.user_id').val();
