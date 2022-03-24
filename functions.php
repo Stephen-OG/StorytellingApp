@@ -8,7 +8,7 @@
 	require 'PHPMailer-master/src/SMTP.php';
 
 	function signup_data($con) {
-		if($_SERVER['REQUEST_METHOD'] == "POST"){
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['btnSubmitForm'])){
 
 			$first_name = $_POST['firstname'];
 			$last_name = $_POST['lastname'];
@@ -18,6 +18,7 @@
 			$isStoryTeller = $_POST['isStoryTeller'];
 			$isStorySeeker = $_POST['isStorySeeker'];
 			$isAdmin = $_POST['isAdmin'];
+			$isActive = $_POST['isActive'];
 
 			if( $password != $confirmPassword){
 				echo 'password do not match';
@@ -38,11 +39,6 @@
 				$sql = "SELECT * FROM users WHERE Email='$email' ";
 
 				$result = mysqli_query($con, $sql);
-				//$result = pg_exec($con, $sql);
-
-				//$user_data = pg_result($result);
-
-				//$result = $con->query($sql);
 
 				$user_data = mysqli_fetch_assoc($result);
 
@@ -65,7 +61,8 @@
 						Password,
 						isStoryTeller,
 						isStoryseeker,
-						isAdmin) values 
+						isAdmin,
+						isActive) values 
 					(
 					'$email',
 					'$first_name',
@@ -73,7 +70,8 @@
 					'$hashed_password',
 					'$isStoryTeller',
 					'$isStorySeeker',
-					'$isAdmin')";			
+					'$isAdmin',
+					'$isActive')";			
 
 					mysqli_query($con,$query);
 
@@ -174,7 +172,7 @@
 	}
 
 	function updateProfile($con){
-		if(isset($_POST['updateProfile']))
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['updateProfile']))
 		{
 			if(isset($_SESSION['id']))
 			{
@@ -196,7 +194,7 @@
 	
 	function add_story($con){
 
-		if(isset($_POST['addStory']))
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addStory']))
 		{
 
 		$title = $_POST['title'];
@@ -279,7 +277,7 @@
 	}
 
 	function change_password($con){
-		if(isset($_POST['changePassword'])){
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['changePassword'])){
 		$current_password = $_POST['currentpassword'];
 		$password = $_POST['password'];
 		$confirm_password = $_POST['confirmpassword'];
