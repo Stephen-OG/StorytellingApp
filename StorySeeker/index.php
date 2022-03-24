@@ -12,7 +12,7 @@ $update_profile = updateProfile($con);
 $change_password = change_password($con);
 
 $my_stories = seeker_stories($con);
-$save_story = save_story($con);
+$save_story = save_story($sid, $uid);
 
 
 ?>
