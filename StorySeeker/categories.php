@@ -12,7 +12,7 @@ session_start();
 
       //$my_stories = my_stories($con);
       $get_story_by_category = get_stories_by_category($con);
-      $save_story = save_story($con);
+      //$save_story = save_story($sid, $uid);
 
 ?>
 
