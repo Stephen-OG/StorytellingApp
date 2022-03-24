@@ -35,6 +35,7 @@ function seeker_stories($con){
 
 function save_story($sid, $uid){
     if($_SERVER['REQUEST_METHOD'] == "POST"){
+        echo "<script>alert('i entered this php file')</script>"; 
         // $sid = $_POST['story_id'];
         // $uid = $_POST['user_id'];
 
