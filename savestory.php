@@ -1,7 +1,7 @@
 <?php
  if($_SERVER['REQUEST_METHOD'] == "POST"){
-    // $sid = $_POST['story_id'];
-    // $uid = $_POST['user_id'];
+    $sid = $_POST['sid'];
+    $uid = $_POST['uid'];
 
     if(empty($sid) && empty($uid))
         {
