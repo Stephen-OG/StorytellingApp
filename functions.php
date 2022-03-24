@@ -24,6 +24,7 @@
 				echo 'password do not match';
 				die;
 			}else{
+
 				$hashed_password = password_hash($password, PASSWORD_DEFAULT);			
 
 			// if ($first_name == "" || $last_name == "" || $email == "" || $hashed_password == "" ) {
@@ -76,7 +77,6 @@
 					mysqli_query($con,$query);
 
 					//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signup confirmed');
-			
 					header("Location:signin.php");
 					die;
 
@@ -185,9 +185,10 @@
 					$filename = $_POST['imagename'];
 				}
 				mysqli_query($con,"UPDATE users set FirstName='$first_name', LastName='$last_name', ProfileImage='$filename' WHERE id = '$id'");				
-			
-		}
-				header("Location:index.php");
+				
+				echo "<script>alert('Story not added')</script>";
+			}
+				header("Location:signup.php");
 				die;
 		}
 	}
