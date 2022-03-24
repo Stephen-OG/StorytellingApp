@@ -5,6 +5,7 @@ session_start();
         include("../functions.php");
         include("../st_functions.php");
         include("../ss_functions.php");
+        //include("../savestory.php");
 
       $check_login = user_login_check($con);
       $update_profile = updateProfile($con);
@@ -279,7 +280,8 @@ session_start();
                                         <img src="../uploads/<?php echo $row['ImageName'];?>" alt="IMG-PRODUCT">
 
                                         <div class="block2-overlay trans-0-4">
-                                            <button type="submit" name="btnsavestory" class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                            <button id="btnsavestory" type="submit" name="btnsavestory"
+                                                class="block2-btn-addwishlist hov-pointer trans-0-4">
                                                 <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                                                 <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                             </button>
@@ -464,7 +466,7 @@ session_start();
 
     <!-- Javascript Files -->
     <script src="../address.js"></script>
-    <script>
+    <!-- <script>
     document.getElementById("storyLocation").addEventListener("submit", function(e) {
         e.preventDefault()
         /*
@@ -509,7 +511,7 @@ session_start();
         }
 
     })
-    </script>
+    </script> -->
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
@@ -543,20 +545,24 @@ session_start();
     // });
 
     $('.block2-btn-addwishlist').each(function() {
-        
-        var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-        var sid = $(this).parent().parent().parent().find('.story_id').val();
-        var uid = $(this).parent().parent().parent().find('.user_id').val();
-        var dataBody = {
-            sid: sid,
-            uid: uid
-        }
-        $(this).on('click', function() {
+        //e.preventDefault();
+        var nameProduct = $('.block2-btn-addwishlist').parent().parent().parent().find('.block2-name').html();
+        $('.block2-btn-addwishlist').on('click', function() {
+            var sid = $(this).parent().parent().parent().find('.story_id').val();
+            var uid = $(this).parent().parent().parent().find('.user_id').val();
+            console.log(sid);
+            console.log(uid);
+            console.log('I got here');
+            var dataBody = {
+                sid: sid,
+                uid: uid
+            }
+            console.log(sid);
             $.ajax({
                 type: "POST",
                 //Try these 2 URLs
-                url: '../ss_functions.php',
-                //url: 'savestory.php',
+                // url: '../ss_functions.php',
+                url: 'savestory.php',
                 data: dataBody.serialize(),
                 success: function(response) {
                     var jsonData = JSON.parse(response);
@@ -571,8 +577,13 @@ session_start();
                     } else {
                         swal(nameProduct,
                             "could not be added to saved stories! Try again later",
-                            "erroe");
+                            "error");
                     }
+                },
+                error: function(){
+                    swal(nameProduct,
+                            "could not be added to saved stories! Try again later",
+                            "error");
                 }
             })
 

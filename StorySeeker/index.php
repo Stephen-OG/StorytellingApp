@@ -12,7 +12,7 @@ $update_profile = updateProfile($con);
 $change_password = change_password($con);
 
 $my_stories = seeker_stories($con);
-$save_story = save_story($sid, $uid);
+//$save_story = save_story($sid, $uid);
 
 
 ?>
@@ -600,12 +600,7 @@ $save_story = save_story($sid, $uid);
     <!--===============================================================================================-->
     <!-- <script type="text/javascript" src="../fashe/vendor/sweetalert/sweetalert.min.js"></script> -->
     <script type="text/javascript">
-        //use alternative image if Profile Image not found
-        document.getElementById('profileImage').src = "../uploads/<?php echo $check_login['ProfileImage']; ?>";
-        document.getElementById('profileImage').onload = function() {}
-        document.getElementById('profileImage').onerror = function() {
-            document.getElementById('profileImage').src = "../img/avatar-6.jpg";
-        }
+        
         $('.block2-btn-addcart').each(function() {
             var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
             $(this).on('click', function() {
@@ -620,6 +615,13 @@ $save_story = save_story($sid, $uid);
                 swal(nameProduct, "is added to saved stories!", "success");
             });
         });
+
+        //use alternative image if Profile Image not found
+        document.getElementById('profileImage').src = "../uploads/<?php echo $check_login['ProfileImage']; ?>";
+        document.getElementById('profileImage').onload = function() {}
+        document.getElementById('profileImage').onerror = function() {
+            document.getElementById('profileImage').src = "../img/avatar-6.jpg";
+        }
     </script>
 
     <!--===============================================================================================-->

@@ -8,7 +8,7 @@
 	require 'PHPMailer-master/src/SMTP.php';
 
 	function signup_data($con) {
-		if($_SERVER['REQUEST_METHOD'] == "POST"){
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['btnSubmitForm'])){
 
 			$first_name = $_POST['firstname'];
 			$last_name = $_POST['lastname'];
@@ -18,11 +18,13 @@
 			$isStoryTeller = $_POST['isStoryTeller'];
 			$isStorySeeker = $_POST['isStorySeeker'];
 			$isAdmin = $_POST['isAdmin'];
+			$isActive = $_POST['isActive'];
 
 			if( $password != $confirmPassword){
 				echo 'password do not match';
 				die;
 			}else{
+
 				$hashed_password = password_hash($password, PASSWORD_DEFAULT);			
 
 			// if ($first_name == "" || $last_name == "" || $email == "" || $hashed_password == "" ) {
@@ -38,11 +40,6 @@
 				$sql = "SELECT * FROM users WHERE Email='$email' ";
 
 				$result = mysqli_query($con, $sql);
-				//$result = pg_exec($con, $sql);
-
-				//$user_data = pg_result($result);
-
-				//$result = $con->query($sql);
 
 				$user_data = mysqli_fetch_assoc($result);
 
@@ -65,7 +62,8 @@
 						Password,
 						isStoryTeller,
 						isStoryseeker,
-						isAdmin) values 
+						isAdmin,
+						isActive) values 
 					(
 					'$email',
 					'$first_name',
@@ -73,12 +71,12 @@
 					'$hashed_password',
 					'$isStoryTeller',
 					'$isStorySeeker',
-					'$isAdmin')";			
+					'$isAdmin',
+					'$isActive')";			
 
 					mysqli_query($con,$query);
 
 					//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signup confirmed');
-			
 					header("Location:signin.php");
 					die;
 
@@ -174,7 +172,7 @@
 	}
 
 	function updateProfile($con){
-		if(isset($_POST['updateProfile']))
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['updateProfile']))
 		{
 			if(isset($_SESSION['id']))
 			{
@@ -187,16 +185,17 @@
 					$filename = $_POST['imagename'];
 				}
 				mysqli_query($con,"UPDATE users set FirstName='$first_name', LastName='$last_name', ProfileImage='$filename' WHERE id = '$id'");				
-			
-		}
-				header("Location:index.php");
+				
+				echo "<script>alert('Story not added')</script>";
+			}
+				header("Location:signup.php");
 				die;
 		}
 	}
 	
 	function add_story($con){
 
-		if(isset($_POST['addStory']))
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addStory']))
 		{
 
 		$title = $_POST['title'];
@@ -279,7 +278,7 @@
 	}
 
 	function change_password($con){
-		if(isset($_POST['changePassword'])){
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['changePassword'])){
 		$current_password = $_POST['currentpassword'];
 		$password = $_POST['password'];
 		$confirm_password = $_POST['confirmpassword'];

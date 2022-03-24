@@ -1,8 +1,10 @@
 <?php
- if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+ if(isset($_POST['story_id']) && $_POST['story_id'] && isset($_POST['user_id']) && $_POST['user_id']){
     echo "<script>alert('i entered yosi's php file')</script>"; 
-    $sid = $_POST['sid'];
-    $uid = $_POST['uid'];
+    // $sid = $_POST['story_id'];
+    // $uid = $_POST['user_id'];
+
 
     if(empty($sid) && empty($uid))
         {
@@ -23,5 +25,6 @@
             echo json_encode(array('success' => 1));
 
         }
+    
 }
 ?>

@@ -1,6 +1,15 @@
 <?php 
-          $admin_check = get_admin_by_id($con);
-          $published_stories = admin_published_stories($con);
+
+            include("../connection.php");
+            include("../functions.php");
+            include("../st_functions.php");
+            include("../ss_functions.php");
+            include("../admin_functions.php");
+            //$admin_check = get_admin_by_id($con);
+            //$published_stories = admin_published_stories($con);
+            $story = get_story_by_id($con);
+            $approve = approve_story($con);
+            $disapprove = disapprove_story($con);
 ?>
 <!DOCTYPE html>
 <html>
@@ -90,7 +99,7 @@
     <header class="header">
         <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#"
                 class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a
-                href="../index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Story Telling App</a>
+                href="index.php?adminid=39" class="navbar-brand font-weight-bold text-uppercase text-base">Story Telling App</a>
             <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
 
 
@@ -145,7 +154,7 @@
                                     <div class="slick3">
                                         <div class="item-slick3" data-thumb="fashe/images/dune.jpg">
                                             <div class="thumb-pic" style="margin: 0 auto;">
-                                                <img src="../fashe/images/dune.jpg" alt="IMG-PRODUCT">
+                                            <img src="../uploads/<?php echo $story['ImageName'];?>">
                                             </div>
                                         </div>
 
@@ -166,15 +175,18 @@
 
                             <div class="w-size14 p-t-30 respon5">
                                 <h4 class="product-detail-name m-text16 p-b-13" style="font-family: 'poppins';">
-                                    Title of Story
+                                <?php echo $story['Title'];
+                                ?>
                                 </h4>
 
                                 <span class="m-text17" style="font-family: 'poppins';">
-                                    Type of Story
+                                <?php echo $story['Category'];
+                                ?>
                                 </span>
 
                                 <p class="s-text8 p-t-10" style="font-family: 'poppins';">
-                                    Location of Story
+                                <?php echo $story['Location'];
+                                ?>
                                 </p>
 
                                 <p class="s-text8 p-t-10" style="display: inline-block; font-family: 'poppins';">
@@ -193,22 +205,8 @@
 
                                     <div class="dropdown-content p-t-15 p-b-23">
                                         <p class="s-text8" style="font-family: 'poppins';">
-                                            Story Body Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at
-                                            ipsum
-                                            blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris
-                                            placerat Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at
-                                            ipsum
-                                            blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris
-                                            placerat
-                                            Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at ipsum
-                                            blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris
-                                            placerat Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at
-                                            ipsum
-                                            blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris
-                                            placerat
-                                            Fusce ornare mi vel risus porttitor dignissim. Nunc eget risus at ipsum
-                                            blandit ornare vel sed velit. Proin gravida arcu nisl, a dignissim mauris
-                                            placerat
+                                        <?php echo $story['Body'];
+                                ?>
                                         </p>
                                     </div>
                                 </div>
@@ -218,12 +216,15 @@
                                     <div>
                                         <!-- Button -->
                                         <br>
-                                        <button id="approvebtn" class="btn btn-primary" style="float: left;">
+                                        <form method="post">
+                                        <input type='hidden' name='storyid' value="<?php echo $story["id"];?>" />
+                                        <button name="approvebtn" type="submit" class="btn btn-primary" style="float: left;">
                                             Approve
                                         </button>
-                                        <button id="disapprovebtn" class="btn btn-secondary" style="float: left; margin-left: 5px;">
+                                        <button name="disapprovebtn" type="submit" class="btn btn-secondary" style="float: left; margin-left: 5px;">
                                             Disapprove
                                         </button>
+                                        </form>
                                     </div>
 
                                   

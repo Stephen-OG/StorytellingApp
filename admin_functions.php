@@ -79,5 +79,25 @@ function admin_published_stories($con)
 
     function all_users($con){
 
-		return mysqli_query($con,"SELECT * FROM users");
+		return mysqli_query($con,"SELECT * FROM users WHERE isAdmin=1");
 	}
+
+    function approve_story($con) {
+        if(isset($_POST['approvebtn']) )
+		{
+            $story = $_POST['storyid'];
+            mysqli_query($con,"UPDATE stories set StoryStatus='Approved' WHERE id = '$story'");
+            echo "<script>alert('Story Added Successfully')</script>";       
+
+        }
+    }
+
+    function disapprove_story($con){
+        if(isset($_POST['disapprovebtn']) )
+		{
+            $story = $_POST['storyid'];
+            mysqli_query($con,"UPDATE stories set StoryStatus='Rejected' WHERE id = '$story'");
+            echo "<script>alert('Story Added Successfully')</script>";
+            //echo "<script src'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Rejected', '', 'error')</script>";
+        }
+    }

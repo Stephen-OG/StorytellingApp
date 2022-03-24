@@ -76,10 +76,11 @@ session_start();
                 <input type="hidden" name="isStorySeeker" value=NULL class="form-control">
                 <input type="hidden" name="isStoryTeller" value="1" class="form-control">
                 <input type="hidden" name="isAdmin" value=NULL class="form-control">
+                <input type="hidden" name="isActive" value="1" class="form-control">
 
                 <!-- <label for="customCheck1" class="custom-control-label">Remember Me</label> -->
               </div>
-              <button id="btnSubmitForm" type="submit" class="btn btn-primary shadow px-5">Sign Up</button>
+              <button name="btnSubmitForm" type="submit" class="btn btn-primary shadow px-5">Sign Up</button>
               <br>
               <br>
               <small>Already have an account? <a href="signin.php">Sign in</a></small>
@@ -92,7 +93,7 @@ session_start();
     </div>
     <!-- JavaScript files-->
     <script src="../vendor/sweetalert/sweetalert.min.js"></script>
-    <script src="../custom/custom.js"></script>
+    <!-- <script src="../custom/custom.js"></script> -->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/popper.js/umd/popper.min.js"> </script>
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>

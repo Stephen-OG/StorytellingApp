@@ -92,7 +92,7 @@
 
 	function edit_story($con){
 
-		if(isset($_POST['editStory']))
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['editStory']))
 		{
 			// I called the get_story_by_id function to edit a story
 			$result = get_story_by_id($con);
