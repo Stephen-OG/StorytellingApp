@@ -68,7 +68,7 @@ session_start();
     <header class="header">
         <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#"
                 class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a
-                href="../index.php" class="navbar-brand font-weight-bold text-uppercase text-base">Story Telling App</a>
+                href="#home" class="navbar-brand font-weight-bold text-uppercase text-base">Story Telling App</a>
             <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
 
 
@@ -79,13 +79,9 @@ session_start();
                     <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong
                                 class="d-block text-uppercase headings-font-family"><?php echo $admin_check['FirstName'];?>  <?php echo $admin_check['LastName'];?>
                                 </strong><small>Admin</small></a>
-                        <div class="dropdown-divider"></div><a data-toggle="modal" data-target="#editProfileModal"
-                            class="dropdown-item">Edit Profile</a><a data-toggle="modal"
-                            data-target="#changePasswordModal" class="dropdown-item">Change Password</a>
-                        <a data-toggle="modal" data-target="#deleteAccountModal" class="dropdown-item">Delete
-                            Account</a>
+                        
                         <div class="dropdown-divider"></div>
-                        <a href="../StoryTeller/signin.php" class="dropdown-item">Logout</a>
+                        <a href="../index.php" class="dropdown-item">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -188,7 +184,7 @@ session_start();
                                             <th>Title</th>
                                             <th>Category</th>
                                             <th>Location</th>
-                                            <th>Status</th>
+                                            <th></th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -204,7 +200,22 @@ session_start();
                                             <td><?php echo $row["Title"]; ?></td>
                                             <td><?php echo $row["Category"]; ?></td>
                                             <td><?php echo $row["Location"]; ?></td>
-                                            <td><?php echo $row["StoryStatus"]; ?></td>
+                                            <td><?php if($row["StoryStatus"] == 'Approved')
+                                            {
+                                                echo "<div class='icon text-white bg-green'><i
+                                                        class='fas fa-check-circle'></i></div>";
+                                            }elseif($row["StoryStatus"] == 'Pending')
+                                            {
+                                                echo "<div class='icon text-white bg-orange'><i
+                                                        class='fas fa-check-circle'></i></div>";
+                                            }elseif($row["StoryStatus"] == 'Rejected')
+                                            {
+                                                echo "<div class='icon text-white bg-red'><i
+                                                        class='fas fa-check-circle'></i></div>";
+                                            };                                    
+                                            
+                                            ?>
+                                            </td>
                                             <td><a href="details.php?storyid=<?php echo $row["id"]; ?>">Details</a></td>
                                         </tr>
                                         <?php 
@@ -233,6 +244,7 @@ session_start();
                                             <th>Last Name</th>
                                             <th>Email</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -246,6 +258,17 @@ session_start();
                                             <td><?php echo $row["FirstName"]; ?></td>
                                             <td><?php echo $row["LastName"]; ?></td>
                                             <td><?php echo $row["Email"]; ?></td>
+                                            <td><?php if($row["isActive"] == 1)
+                                            {
+                                                echo "<div class='icon text-white bg-blue'><i
+                                                        class='fas fa-check-circle'></i></div>";
+                                            }elseif($row["isActive"] == 0)
+                                            {
+                                                echo "<div class='icon text-white bg-red'><i
+                                                        class='fas fa-check-circle'></i></div>";
+                                            }                                  
+                                            
+                                            ?></td>
                                             <td><a href="users.php?userid=<?php echo $row["id"]; ?>">Profile Details</a></td>
                                         </tr>
                                         <?php 

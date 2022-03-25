@@ -5,12 +5,15 @@ session_start();
       include("../functions.php");
       include("../admin_functions.php");
       
-      //$admin_check = get_admin_by_id($con);
+      $admin_check = get_admin_by_id($con);
       $story_teller = get_storyteller_by_id($con);
       $published_stories = published__stories($con);
       $pending_stories = pending__stories($con);
       $rejected_stories = rejected__stories($con);
       $total_stories = storytellertotal__stories($con);
+
+      $activate_user = activate_user($con);
+      $deactivate_user = deactivate_user($con)
 
 ?>
 <!DOCTYPE html>
@@ -64,13 +67,9 @@ session_start();
             aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="../img/avatar-6.jpg"
               alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
           <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong
-                class="d-block text-uppercase headings-font-family">Tom Stephen</strong><small>Admin</small></a>
-            <div class="dropdown-divider"></div><a data-toggle="modal" data-target="#editProfileModal"
-              class="dropdown-item">Edit Profile</a><a data-toggle="modal" data-target="#changePasswordModal"
-              class="dropdown-item">Change Password</a>
-            <a data-toggle="modal" data-target="#deleteAccountModal" class="dropdown-item">Delete Account</a>
+                class="d-block text-uppercase headings-font-family"><?php echo $admin_check['FirstName'];?>  <?php echo $admin_check['LastName'];?></strong><small>Admin</small></a>
             <div class="dropdown-divider"></div>
-            <a href="../StoryTeller/signin.html" class="dropdown-item">Logout</a>
+            <a href="../index.php" class="dropdown-item">Logout</a>
           </div>
         </li>
       </ul>
@@ -110,14 +109,21 @@ session_start();
                   <div class="col-lg-5">
                     <h2 class="mb-0 d-flex align-items-center"><span><?php echo $story_teller['FirstName'];
                                 ?> <?php echo $story_teller['LastName'];
-                                ?></span><span
-                        class="dot bg-green d-inline-block ml-3"></span></h2><span
+                                ?></span>
+                                <?php if($story_teller['isActive'] == 1)
+                                {
+                                  echo "<span class='dot bg-green d-inline-block ml-3'></span>";
+                                  }
+                                  else{
+                                    echo "<span class='dot bg-red d-inline-block ml-3'></span>";
+                                  };?>
+                      </h2><span
                       class="text-muted text-uppercase small">Story Teller</span>
                     <hr>
                     <form method="post">
-                    <input type='hidden' name='userid' value="<?php echo $story_teller["id"];?>" />
-                    <button id="activatebtn" class="btn btn-primary">Activate</button>
-                    <button id="deactivatebtn" class="btn btn-secondary">Deactivate</button>
+                    <input type='hidden' name='userid' value="<?php echo $story_teller['id'];?>" />
+                    <button name="activatebtn" type="submit" class="btn btn-primary">Activate</button>
+                    <button name="deactivatebtn" type="submit" class="btn btn-secondary">Deactivate</button>
                     <!-- <small class="text-muted">Lorem ipsum dolor sit</small> -->
                     </form>
                   </div>

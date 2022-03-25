@@ -186,7 +186,7 @@ function admin_published_stories($con)
 		{
             $story = $_POST['storyid'];
             mysqli_query($con,"UPDATE stories set StoryStatus='Approved' WHERE id = '$story'");
-            echo "<script>alert('Story Added Successfully')</script>";       
+            echo "<script>alert('Story Approved')</script>";       
 
         }
     }
@@ -196,7 +196,27 @@ function admin_published_stories($con)
 		{
             $story = $_POST['storyid'];
             mysqli_query($con,"UPDATE stories set StoryStatus='Rejected' WHERE id = '$story'");
-            echo "<script>alert('Story Added Successfully')</script>";
+            echo "<script>alert('Story Disapproved')</script>";
             //echo "<script src'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Rejected', '', 'error')</script>";
+        }
+    }
+
+    function activate_user($con) {
+        if(isset($_POST['activatebtn']) )
+		{
+            $user = $_POST['userid'];
+            mysqli_query($con,"UPDATE users set isActive=1 WHERE id = '$user'");
+            echo "<script>alert('User Activated')</script>";       
+
+        }
+    }
+
+    function deactivate_user($con) {
+        if(isset($_POST['deactivatebtn']) )
+		{
+            $user = $_POST['userid'];
+            mysqli_query($con,"UPDATE users set isActive=0 WHERE id = '$user'");
+            echo "<script>alert('User Deactivated')</script>";       
+
         }
     }

@@ -9,6 +9,7 @@ session_start();
       $update_profile = updateProfile($con);
       $change_password = change_password($con);
       $my_stories = my_stories($con);
+      $delete_story = delete_added_story($con);
 ?>    
 
 <!DOCTYPE html>
@@ -48,7 +49,7 @@ session_start();
   <body>
     <!-- navbar-->
     <header class="header">
-      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead" ><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Story Telling App</a>
+      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead" ><i class="fas fa-align-left"></i></a><a href="index.php" class="navbar-brand font-weight-bold text-uppercase text-base">Story Telling App</a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
          
           
@@ -94,7 +95,7 @@ session_start();
                     <th style="width: 30%;" >TITLE</th>
                     <th style="width: 20%;" >CATEGORY</th>
                     <th style="width: 30%;">LOCATION</th>
-                    <th style="width: 20%;">STATUS</th>
+                    <th style="width: 20%;"></th>
                     <th></th>
                   </tr>
                 </thead>
@@ -111,7 +112,21 @@ session_start();
                     <td><?php echo $row["Title"]; ?></td>
                     <td><?php echo $row["Category"]; ?></td>
                     <td><?php echo $row["Location"]; ?></td>
-                    <td><?php echo $row["StoryStatus"]; ?></td>
+                    <td><?php if($row["StoryStatus"] == 'Approved')
+                              {
+                                  echo "<div class='icon text-white bg-green'><i
+                                          class='fas fa-check-circle'></i></div>";
+                              }elseif($row["StoryStatus"] == 'Pending')
+                              {
+                                  echo "<div class='icon text-white bg-orange'><i
+                                          class='fas fa-check-circle'></i></div>";
+                              }elseif($row["StoryStatus"] == 'Rejected')
+                              {
+                                  echo "<div class='icon text-white bg-red'><i
+                                          class='fas fa-check-circle'></i></div>";
+                              };                                    
+                                            
+                        ?></td>
                     <td id= "actions">
                       <div>
                       <a href="editstory.php?storyid=<?php echo $row["id"];?>">
@@ -119,9 +134,12 @@ session_start();
                         </a>
                         </div>
                         <div>
-                      <a href="" id = "deleteStory" data-toggle="modal" data-target="#deleteStoryModal" data-storyid=<?php echo $row["id"];?>>
+                        <form method="post">
+                          <input type='hidden' name='storyid' value="<?php echo $row["id"];?>" />
+                      <button type="submit" style="float: right;" >
                         <i class="fa-solid fa-trash-can" ></i>
-                      </a>
+                            </button>
+                        </form>
                     </div>
                     </td> 
                   </tr>
@@ -257,7 +275,7 @@ session_start();
           </div>
 
           <!-- Delete Story Modal-->
-          <div id="deleteStoryModal<?php echo $row["Title"];?>" tabindex="-1" role="dialog" aria-labelledby="deleteStoryModalLabel" aria-hidden="true" class="modal fade text-left">
+          <div id="deleteStoryModal" tabindex="-1" role="dialog" aria-labelledby="deleteStoryModalLabel" aria-hidden="true" class="modal fade text-left">
             <div role="document" class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">

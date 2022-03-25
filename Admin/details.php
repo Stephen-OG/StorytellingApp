@@ -107,15 +107,10 @@
                             src="../img/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;"
                             class="img-fluid rounded-circle shadow"></a>
                     <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong
-                                class="d-block text-uppercase headings-font-family">Tom
-                                Stephen</strong><small>Admin</small></a>
-                        <div class="dropdown-divider"></div><a data-toggle="modal" data-target="#editProfileModal"
-                            class="dropdown-item">Edit Profile</a><a data-toggle="modal"
-                            data-target="#changePasswordModal" class="dropdown-item">Change Password</a>
-                        <a data-toggle="modal" data-target="#deleteAccountModal" class="dropdown-item">Delete
-                            Account</a>
+                                class="d-block text-uppercase headings-font-family"><?php echo $admin_check['FirstName'];?>  <?php echo $admin_check['LastName'];?></strong><small>Admin</small></a>
+                        
                         <div class="dropdown-divider"></div>
-                        <a href="../StoryTeller/signin.php" class="dropdown-item">Logout</a>
+                        <a href="../index.php" class="dropdown-item">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -190,8 +185,21 @@
 
                                 <p class="s-text8 p-t-10" style="display: inline-block; font-family: 'poppins';">
                                     Status: &nbsp; 
-                                    <?php echo $story['StoryStatus'];
-                                ?>
+                                    <?php if($story["StoryStatus"] == 'Approved')
+                                            {
+                                                echo "<div class='icon text-white bg-green'><i
+                                                        class='fas fa-check-circle'></i></div>";
+                                            }elseif($story["StoryStatus"] == 'Pending')
+                                            {
+                                                echo "<div class='icon text-white bg-orange'><i
+                                                        class='fas fa-check-circle'></i></div>";
+                                            }elseif($story["StoryStatus"] == 'Rejected')
+                                            {
+                                                echo "<div class='icon text-white bg-red'><i
+                                                        class='fas fa-check-circle'></i></div>";
+                                            };                                    
+                                            
+                                            ?>
                                 </p>
 
 

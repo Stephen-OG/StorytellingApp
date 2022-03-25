@@ -109,3 +109,15 @@
 				die;
 		}
 	}
+
+	function delete_added_story($con){
+		if($_SERVER['REQUEST_METHOD'] == "POST"){
+			{
+				$storyid = $_POST['storyid'];
+	
+				mysqli_query($con,"DELETE FROM stories WHERE id = '$storyid' ");
+				echo "<script>alert('Story Deleted')</script>";       
+
+			}
+		}
+	}
