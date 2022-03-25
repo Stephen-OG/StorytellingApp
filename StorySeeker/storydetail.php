@@ -128,7 +128,7 @@ session_start();
                         <!-- <a data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item">Write A Story</a> -->
                         <a data-toggle="modal" data-target="#deleteAccountModal" class="dropdown-item">Delete Account</a>
                         <div class="dropdown-divider"></div>
-                        <a href="signin.php" class="dropdown-item">Logout</a>
+                        <a href="logout.php" class="dropdown-item">Logout</a>
                     </div>
                 </li>
             </ul>

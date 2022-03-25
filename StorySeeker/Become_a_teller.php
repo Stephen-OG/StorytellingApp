@@ -3,9 +3,9 @@ session_start();
 
       include("../connection.php");
       include("../functions.php");
+      include("../ss_functions.php");
 
-      $user_registration = signup_data($con);
-      
+      $become_a_story_teller = become_a_story_teller($con);
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,43 +47,22 @@ session_start();
 
       <div class="container">
         <div class="row align-items-center py-5">
-          <div class="col-5 col-lg-7 mx-auto mb-5 mb-lg-0">
-
-            <div class="pr-lg-5"><img src="../img/ouat.jpg" alt="" class="img-fluid"></div>
-          </div>
+          
           <div class="col-lg-5 px-lg-4">
-            <h1 class="text-base text-primary text-uppercase mb-4">Sign Up</h1>
+            <h1 class="text-base text-primary text-uppercase mb-4">Become a Story Teller</h1>
             <h2 class="mb-4">Welcome!</h2>
-            <p class="text-muted">Sign up now to tell stories.</p>
-            <form id="signUpForm" class="mt-4" method="post">
-              <div class="form-group mb-4">
-                <input type="text" id="firstname" name="firstname" placeholder="Firstname" class="form-control border-0 shadow form-control-lg" required>
-              </div>
-              <div class="form-group mb-4">
-                <input type="text" id="lastname" name="lastname" placeholder="Lastname" class="form-control border-0 shadow form-control-lg" required>
-              </div>
-              <div class="form-group mb-4">
-                <input id= "email" type="email" name="email" placeholder="Email Address" class="form-control border-0 shadow form-control-lg" required>
-              </div>
-              <div class="form-group mb-4">
-                <input type="password" id="password" name="password" placeholder="Password" class="form-control border-0 shadow form-control-lg text-violet" required>
-              </div>
-              <div class="form-group mb-4">
-                <input type="password" id="confirmpassword" name="confirmPassword" placeholder="Confirm Password" class="form-control border-0 shadow form-control-lg text-violet" required>
-              </div>
+            <p class="text-muted">Are you sure you want to Become a story teller?</p>
+            <form id="BeATeller" class="mt-4" method="post">
               <div class="custom-control custom-checkbox">
                 <input id="customCheck1" type="checkbox" checked class="custom-control-input">
-                <input type="hidden" name="isStorySeeker" value=NULL class="form-control">
                 <input type="hidden" name="isStoryTeller" value="1" class="form-control">
-                <input type="hidden" name="isAdmin" value=NULL class="form-control">
-                <input type="hidden" name="isActive" value="1" class="form-control">
-
                 <!-- <label for="customCheck1" class="custom-control-label">Remember Me</label> -->
               </div>
-              <button name="btnSubmitForm" type="submit" class="btn btn-primary shadow px-5">Sign Up</button>
+              <button name="btnStoryTeller" type="submit" class="btn btn-primary shadow px-5">Yes</button>
+
               <br>
               <br>
-              <small>Already have an account? <a href="signin.php">Sign in</a></small>
+              <small>Not interested? <a href="index.php">go back to seeker page</a></small>
             </form>
           </div>
         </div>

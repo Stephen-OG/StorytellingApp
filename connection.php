@@ -19,7 +19,7 @@ if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
 {
 	die("failed to connect!");
 }
-//OmcZ-~+896LO%swr
+//r+=5G)B0pk=sxi++
 // $dbhost = "ec2-3-229-161-70.compute-1.amazonaws.com";
 // $dbuser = "ybcjbbpiblesnb";
 // $dbpass = "2b1cadff8ddc6cd7f60dfc0f6cdae776514f12b36037fbc11dfdbb4326f784d7";

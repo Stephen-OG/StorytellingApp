@@ -13,5 +13,5 @@ if(isset($_COOKIE['email']) and isset($_COOKIE['password'])){
     setcookie('password',$password, time()-1);
 }
 
-header("Location: signin.php");
+header("Location: ../signin.php");
 die;

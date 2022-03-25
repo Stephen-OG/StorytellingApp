@@ -53,9 +53,9 @@
             <div class="classy-navbar-toggler">
 
               <span class="navbarToggler">
-                <a data-toggle="modal" data-target="#signInModal"><i class="fas fa-user fa-2x" aria-hidden="true"
+                <a href="signin.php"><i class="fas fa-user fa-2x" aria-hidden="true"
                     title="Sign in"></i></a>&nbsp;
-                <a data-toggle="modal" data-target="#signUpModal"><i class="fas fa-user-plus fa-2x" aria-hidden="true"
+                <a href="signup.php"><i class="fas fa-user-plus fa-2x" aria-hidden="true"
                     title="Sign up"></i></a>
               </span>
             </div>
@@ -68,7 +68,7 @@
 
                 <!-- User Icon -->
                 <span>
-                  <a data-toggle="modal" data-target="#signInModal" class="btn btn-secondary" style="color: #fff;">
+                  <a href="signin.php" class="btn btn-secondary" style="color: #fff;">
 
                     <i class="fas fa-user" aria-hidden="true" style="padding-right: 2px; color: #fff;">&nbsp;</i>Sign in
                   </a>
@@ -77,7 +77,7 @@
                 <!-- Sign Up Icon -->
                 <span>
 
-                  <a data-toggle="modal" data-target="#signUpModal" class="btn btn-primary" style="color: #fff;">Sign
+                  <a href="signup.php" class="btn btn-primary" style="color: #fff;">Sign
                     up</a>
 
                 </span>
@@ -107,11 +107,10 @@
                 </h2>
                 <p data-animation="fadeInUp" data-delay="400ms">Our story telling platform connects a global community
                   of seekers and tellers through the power of story.</p>
-                <a href="./StorySeeker/signup.php" class="btn mt-4"
+                <a href="signup.php" class="btn mt-4"
                   style="padding-top: 12px; font-size: 16px; min-width: 160px;  height: 50px; background-color: #6c757d;"
                   data-animation="bounceInUp" data-delay="600ms">Start Seeking</a>&nbsp;
-                <a href="./StoryTeller/signup.php" class="btn famie-btn mt-4" style="padding-top: 12px; font-size: 16px;"
-                  data-animation="bounceInUp" data-delay="600ms">Start Telling</a>
+        
               </div>
             </div>
           </div>
@@ -127,12 +126,11 @@
                 <h2 data-animation="fadeInDown" data-delay="200ms">Your original story could be the next big hit.</h2>
                 <p data-animation="fadeInDown" data-delay="400ms">Share your unique voice and original story on our
                   platform. Find the writing resources you need to craft a story only you can tell.</p>
-                <a href="./StorySeeker/signup.php" class="btn mt-4"
+                <a href="signup.php" class="btn mt-4"
                   style="padding-top: 12px; font-size: 16px; min-width: 160px;  height: 50px; background-color: #6c757d;"
                   data-animation="bounceInUp" data-delay="600ms">Start Seeking</a>&nbsp;
                 <!-- <a href="#" class="btn" style="padding-top: 12px; color: #6c757d;" data-animation="bounceInDown" data-delay="600ms">Start Seeking</a> -->
-                <a href="./StoryTeller/signup.php" class="btn famie-btn mt-4" style="padding-top: 12px; font-size: 16px;"
-                  data-animation="bounceInDown" data-delay="600ms">Start Telling</a>
+                
               </div>
             </div>
           </div>

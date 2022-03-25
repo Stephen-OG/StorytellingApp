@@ -12,7 +12,7 @@ $update_profile = updateProfile($con);
 $change_password = change_password($con);
 
 $my_stories = seeker_stories($con);
-//$save_story = save_story($sid, $uid);
+$save_story = save_story($con);
 
 
 ?>
@@ -102,7 +102,7 @@ $my_stories = seeker_stories($con);
                 </li>
 
                 <li class="nav-item dropdown mr-3"><a id="notifications" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle text-gray-400 px-1"><i class="fa fa-edit"></i></a>
-                    <div aria-labelledby="notifications" class="dropdown-menu"><a href="../StoryTeller/signup.php" class="dropdown-item">
+                    <div aria-labelledby="notifications" class="dropdown-menu"><a href="./Become_a_teller.php" class="dropdown-item">
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-sm bg-blue text-white"><i class="fas fa-upload"></i></div>
                                 <div class="text ml-2">
@@ -128,7 +128,7 @@ $my_stories = seeker_stories($con);
                         <!-- <a data-toggle="modal" data-target="#changePasswordModal" class="dropdown-item">Write A Story</a> -->
                         <a data-toggle="modal" data-target="#deleteAccountModal" class="dropdown-item">Delete Account</a>
                         <div class="dropdown-divider"></div>
-                        <a href="signin.php" class="dropdown-item">Logout</a>
+                        <a href="logout.php" class="dropdown-item">Logout</a>
                     </div>
                 </li>
             </ul>

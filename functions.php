@@ -37,18 +37,12 @@
 			// 	echo "<script>alert('There are no fields to generate a report');</script>"; 
 			// }
 
-				$sql = "SELECT * FROM users WHERE Email='$email' ";
-
-				$result = mysqli_query($con, $sql);
+				$result = mysqli_query($con, "SELECT * FROM users WHERE Email='$email' ");
 
 				$user_data = mysqli_fetch_assoc($result);
 
 				//check if the email has been used before
-				if (mysqli_num_rows($result) > 0 && $user_data['isStoryTeller'] == 1)  {
-
-						header("Location:signup.php?error=The email already exists, please try another");
-						exit();
-					}elseif (mysqli_num_rows($result) > 0 && $user_data['isStoryseeker'] == 1){
+				if (mysqli_num_rows($result) > 0 && $user_data['isStoryseeker'] == 1)  {
 						header("Location:signup.php?error=The email already exists, please try another");
 						exit();
 					}
@@ -74,11 +68,15 @@
 					'$isAdmin',
 					'$isActive')";			
 
-					mysqli_query($con,$query);
-
-					//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signup confirmed');
-					header("Location:signin.php");
-					die;
+					if(mysqli_query($con,$query))
+					{
+						//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signup confirmed');
+						header("Location:signin.php");
+						die;
+					}
+					else{
+						echo "<script>alert('failed to add')</script>";
+					}	
 
 				//echo '<script> alert("Registered successfully!");document.location="signin.php"</script>';
 				//echo '<script></script>';
@@ -101,8 +99,7 @@
 			}
 
 				//read from database
-				$query = "select * from users where Email = '$email' limit 1";
-				$result = mysqli_query($con, $query);
+				$result = mysqli_query($con, "SELECT * FROM users WHERE Email='$email' LIMIT 1");
 
 				if($result)
 				{
@@ -126,14 +123,14 @@
 
 							$_SESSION['id'] = $user_data['id'];							
 
-							if($user_data['isStoryTeller'] == 1){
+							if($user_data['isStoryTeller'] == 1 && $user_data['isStorySeeker']== 1){
 								//email_sender($email, $first_name, 'Hi,<br>You have just signed in on the Story Telling app.','Signin confirmed');
-								header("Location:../StoryTeller/index.php");
+								header("Location:StoryTeller/index.php");
 								die;
 							}
-							elseif($user_data['isStorySeeker'] == 1){
+							elseif($user_data['isStoryTeller']== 0 && $user_data['isStorySeeker'] == 1){
 								//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signin confirmed');
-								header("Location:../StorySeeker/index.php");
+								header("Location:StorySeeker/index.php");
 								die;
 							}
 																		
@@ -151,12 +148,9 @@
 	{
 	
 		if(isset($_SESSION['id']))
-		{
-	
-			$id = $_SESSION['id'];
-			$query = "select * from users where id = '$id' limit 1";
-	
-			$result = mysqli_query($con, $query);
+		{	
+			$id = $_SESSION['id'];	
+			$result = mysqli_query($con, "SELECT * FROM users WHERE id='$id' LIMIT 1");
 
 			if($result && mysqli_num_rows($result) > 0)
 			{
@@ -166,7 +160,7 @@
 		}
 	
 		//redirect to login
-		header("Location:signin.php");
+		header("Location:../signin.php");
 		die;
 	
 	}
@@ -291,7 +285,7 @@
 			{
 				$user_id = $_SESSION['id'];
 				$query = "select * from users where id = '$user_id' limit 1";
-				$result = mysqli_query($con, $query);
+				$result = mysqli_query($con, "SELECT * FROM users WHERE id='$user_id' LIMIT 1");
 
 			if($result)
 			{

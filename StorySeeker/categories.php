@@ -11,9 +11,8 @@ session_start();
       $update_profile = updateProfile($con);
       $change_password = change_password($con);
 
-      //$my_stories = my_stories($con);
       $get_story_by_category = get_stories_by_category($con);
-      //$save_story = save_story($sid, $uid);
+      $save_story = save_story($con);
 
 ?>
 
@@ -133,7 +132,7 @@ session_start();
                         <a data-toggle="modal" data-target="#deleteAccountModal" class="dropdown-item">Delete
                             Account</a>
                         <div class="dropdown-divider"></div>
-                        <a href="signin.php" class="dropdown-item">Logout</a>
+                        <a href="logout.php" class="dropdown-item">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -209,6 +208,11 @@ session_start();
                             <li class="p-t-6 p-b-8 bo7">
                                 <a href="categories.php?category=tragedy" class="s-text13 p-t-5 p-b-5">
                                     Tragedy
+                                </a>
+                            </li>
+                            <li class="p-t-6 p-b-8 bo7">
+                                <a href="categories.php?category=others" class="s-text13 p-t-5 p-b-5">
+                                    Others
                                 </a>
                             </li>
                         </ul>
@@ -539,69 +543,72 @@ session_start();
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/sweetalert/sweetalert.min.js"></script>
     <script type="text/javascript">
-    // $('.block2-btn-addcart').each(function () {
-    //     var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-    //     $(this).on('click', function () {
-    //         // swal(nameProduct, "is added to cart !", "success");
-    //     });
-    // });
+    $('.block2-btn-addcart').each(function() {
+            var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+            $(this).on('click', function() {
+                //swal(nameProduct, "is added to cart !", "success");
+            });
+        });
+
+        $('.block2-btn-addwishlist').each(function() {
+            var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+
+            $(this).on('click', function() {
+                swal(nameProduct, "is added to saved stories!", "success");
+            });
+        });
     
 
-    $('.block2-btn-addwishlist').each(function() {
-        //e.preventDefault();
-        var nameProduct = $('.block2-btn-addwishlist').parent().parent().parent().find('.block2-name').html();
-        $('.block2-btn-addwishlist').on('click', function(e) {
-            e.preventDefault();
-            var sid = $(this).parent().parent().parent().find('.story_id').val();
-            var uid = $(this).parent().parent().parent().find('.user_id').val();
-            console.log(sid);
-            console.log(uid);
-            console.log('I got here');
-            // var dataBody = {
-            //     sid: sid,
-            //     uid: uid
-            // }
-            var jsondata = [{"sid":sid, "uid":uid}];
-            console.log(jsondata);
-            var jsonarray = JSON.stringify(jsondata);
-            console.log(jsonarray);
-            $.ajax({
-                type: "POST",
-                //Try these 2 URLs
-                // url: '../ss_functions.php',
-                url: 'savestory.php',
-                dataType: 'json',
-                data: jsonarray,
-                success: function(response) {
-                    var jsonData = JSON.parse(response);
-                    console.log(jsonData)
-                    // user is logged in successfully in the back-end
-                    // let's redirect
-                    if (jsonData.success == "1") {
-                        swal(nameProduct, "is added to saved stories!", "success");
-                    }
-                    if (jsonData.success == "2") {
-                        swal(nameProduct, "is already in your saved stories!", "warning");
-                    } else {
-                        swal(nameProduct,
-                            "could not be added to saved stories! Try again later",
-                            "error");
-                    }
-                },
-                error: function(){
-                    swal(nameProduct,
-                            "could not be added to saved stories! Try again later",
-                            "error");
-                }
-            })
+    // $('.block2-btn-addwishlist').each(function() {
+    //     //e.preventDefault();
+    //     var nameProduct = $('.block2-btn-addwishlist').parent().parent().parent().find('.block2-name').html();
+    //     $('.block2-btn-addwishlist').on('click', function(e) {
+    //         e.preventDefault();
+    //         var sid = $(this).parent().parent().parent().find('.story_id').val();
+    //         var uid = $(this).parent().parent().parent().find('.user_id').val();
+    //         console.log(sid);
+    //         console.log(uid);
+    //         console.log('I got here');
+    //         // var dataBody = {
+    //         //     sid: sid,
+    //         //     uid: uid
+    //         // }
+    //         var jsondata = [{"sid":sid, "uid":uid}];
+    //         console.log(jsondata);
+    //         var jsonarray = JSON.stringify(jsondata);
+    //         console.log(jsonarray);
+    //         $.ajax({
+    //             type: "POST",
+    //             //Try these 2 URLs
+    //             // url: '../ss_functions.php',
+    //             url: 'savestory.php',
+    //             dataType: 'json',
+    //             data: jsonarray,
+    //             success: function(response) {
+    //                 var jsonData = JSON.parse(response);
+    //                 console.log(jsonData)
+    //                 // user is logged in successfully in the back-end
+    //                 // let's redirect
+    //                 if (jsonData.success == "1") {
+    //                     swal(nameProduct, "is added to saved stories!", "success");
+    //                 }
+    //                 if (jsonData.success == "2") {
+    //                     swal(nameProduct, "is already in your saved stories!", "warning");
+    //                 } else {
+    //                     swal(nameProduct,
+    //                         "could not be added to saved stories! Try again later",
+    //                         "error");
+    //                 }
+    //             },
+    //             error: function(){
+    //                 swal(nameProduct,
+    //                         "could not be added to saved stories! Try again later",
+    //                         "error");
+    //             }
+    //         })
 
-        });
-        //before code
-        // var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-        // $(this).on('click', function () {
-        //     swal(nameProduct, "is added to saved stories!", "success");
-        // });
-    });
+    //     });
+
     //use alternative image if Profile Image not found
     document.getElementById('profileImage').src = "../uploads/<?php echo $check_login['ProfileImage'];?>";
     document.getElementById('profileImage').onload = function() {}
