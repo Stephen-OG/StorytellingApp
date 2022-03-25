@@ -626,9 +626,9 @@ $my_stories = seeker_stories($con);
 
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/parallax100/parallax100.js"></script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $('.parallax100').parallax100();
-    </script>
+    </script> -->
     <!--===============================================================================================-->
     <script src="../fashe/js/main.js"></script>
 

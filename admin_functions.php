@@ -27,6 +27,57 @@ function get_admin_by_id($con){
 		die;
 }
 
+function get_storyteller_by_id($con){
+    // Initialize URL to the variable
+    // $url = 'https://www.geeksforgeeks.org/register?name=Amit&email=amit1998@gmail.com';
+    $url = $_SERVER['REQUEST_URI'];
+    // Use parse_url() function to parse the URL 
+    // and return an associative array which
+    // contains its various components
+    $url_components = parse_url($url);
+    
+    // Use parse_str() function to parse the
+    // string passed via URL
+    parse_str($url_components['query'], $params);
+    $user_id = $params['userid'];
+
+    $result = mysqli_query($con,"SELECT * FROM users WHERE id = '$user_id'");
+
+    return mysqli_fetch_assoc($result);
+}
+
+function active_users($con) 
+    {
+        $count = 0;
+        $acive_users = mysqli_query($con,"SELECT * FROM users WHERE isActive = 1 AND isStoryTeller=1");
+        
+        while(mysqli_fetch_array($acive_users) ){
+            ++$count;
+        } 
+        return $count;
+    }
+
+function inactive_users($con)
+    {
+        $count = 0;
+        $inacive_users = mysqli_query($con,"SELECT * FROM users WHERE isActive = 0 AND isStoryTeller=1");
+        
+        while(mysqli_fetch_array($inacive_users) ){
+            ++$count;
+        } 
+        return $count;
+    }
+function all_storytellers($con)
+    {
+        $count = 0;
+        $inacive_users = mysqli_query($con,"SELECT * FROM users WHERE isStoryTeller=1");
+        
+        while(mysqli_fetch_array($inacive_users) ){
+            ++$count;
+        } 
+        return $count;
+    }
+
 function admin_published_stories($con)
 	{
         $count = 0;
@@ -79,8 +130,56 @@ function admin_published_stories($con)
 
     function all_users($con){
 
-		return mysqli_query($con,"SELECT * FROM users WHERE isAdmin=1");
+		return mysqli_query($con,"SELECT * FROM users WHERE isStoryTeller=1");
 	}
+
+    function published__stories($con){
+        $story_teller = get_storyteller_by_id($con);
+
+			$count = 0;
+			$published_stories = mysqli_query($con,"SELECT * FROM stories WHERE StoryStatus = 1 AND userid = '$story_teller[id]'");
+			
+			while(mysqli_fetch_array($published_stories) ){
+				++$count;
+			} 
+			return $count;
+    }
+
+    function pending__stories($con){
+        $story_teller = get_storyteller_by_id($con);
+
+			$count = 0;
+			$pending_stories = mysqli_query($con,"SELECT * FROM stories WHERE StoryStatus = 2 AND userid = '$story_teller[id]'");
+			
+			while(mysqli_fetch_array($pending_stories) ){
+				++$count;
+			} 
+			return $count;
+    }
+
+    function rejected__stories($con){
+        $story_teller = get_storyteller_by_id($con);
+
+			$count = 0;
+			$rejected_stories = mysqli_query($con,"SELECT * FROM stories WHERE StoryStatus = 3 AND userid = '$story_teller[id]'");
+			
+			while(mysqli_fetch_array($rejected_stories) ){
+				++$count;
+			} 
+			return $count;
+    }
+
+    function storytellertotal__stories($con){
+        $story_teller = get_storyteller_by_id($con);
+
+			$count = 0;
+			$rejected_stories = mysqli_query($con,"SELECT * FROM stories WHERE userid = '$story_teller[id]'");
+			
+			while(mysqli_fetch_array($rejected_stories) ){
+				++$count;
+			} 
+			return $count;
+    }
 
     function approve_story($con) {
         if(isset($_POST['approvebtn']) )

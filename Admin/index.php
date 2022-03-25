@@ -6,12 +6,15 @@ session_start();
       include("../admin_functions.php");
       
       $admin_check = get_admin_by_id($con);
+      $active_users = active_users($con);
+      $inactive_users = inactive_users($con);
+      $total_users = all_storytellers($con);
       $published_stories = admin_published_stories($con);
       $pending_stories = admin_pending_stories($con);
       $rejected_stories = admin_rejected_stories($con);
       $total_stories = admin_total_stories($con);
       $all_stories = all_stories($con);
-      $all_users = all_users($con);
+      $all_storytellers = all_users($con);
 
 ?>
 
@@ -147,7 +150,7 @@ session_start();
                                     <div class="text" style="margin-left: 4px;">
                                         <h6 class="mb-0" style="color: #212529; text-align: left; margin-left: 4px;">
                                             Activated Users</h6><span class="text-gray"
-                                            style="font-size:smaller; float: left; margin-left: 4px;">5 / 32</span>
+                                            style="font-size:smaller; float: left; margin-left: 4px;"><?php echo $active_users;?> / <?php echo $total_users;?></span>
                                     </div>
                                 </div>
                                 <div class="icon text-white bg-blue"><i class="fas fa-check-circle"></i></div>
@@ -161,7 +164,7 @@ session_start();
                                     <div class="text" style="margin-left: 4px;">
                                         <h6 class="mb-0" style="color: #212529; text-align: left; margin-left: 4px;">
                                             Deactivated Users</h6><span class="text-gray"
-                                            style="font-size:smaller; float: left; margin-left: 4px;">4 / 32</span>
+                                            style="font-size:smaller; float: left; margin-left: 4px;"><?php echo $inactive_users;?>  / <?php echo $total_users;?></span>
                                     </div>
                                 </div>
                                 <div class="icon text-white bg-red"><i class="fas fa-exclamation-circle"></i></div>
@@ -185,7 +188,7 @@ session_start();
                                             <th>Title</th>
                                             <th>Category</th>
                                             <th>Location</th>
-                                            <th></th>
+                                            <th>Status</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -201,12 +204,8 @@ session_start();
                                             <td><?php echo $row["Title"]; ?></td>
                                             <td><?php echo $row["Category"]; ?></td>
                                             <td><?php echo $row["Location"]; ?></td>
+                                            <td><?php echo $row["StoryStatus"]; ?></td>
                                             <td><a href="details.php?storyid=<?php echo $row["id"]; ?>">Details</a></td>
-                                            <td>
-                                                <div class="icon text-white bg-green"><i
-                                                        class="fas fa-check-circle"></i></div>
-                                            </td>
-
                                         </tr>
                                         <?php 
                                             $i++;
@@ -223,7 +222,7 @@ session_start();
                     <div class="col-lg-12 mb-4">
                         <div class="card">
                             <div class="card-header">
-                                <h6 class="text-uppercase mb-0">All Users</h6>
+                                <h6 class="text-uppercase mb-0">All Story Tellers</h6>
                             </div>
                             <div class="card-body" style="overflow-x: auto;">
                                 <table class="table table-hover card-text" id="usersTable">
@@ -239,7 +238,7 @@ session_start();
                                     <tbody>
                                     <?php 
                                         $i=1;
-                                        while($row = mysqli_fetch_array($all_users) )
+                                        while($row = mysqli_fetch_array($all_storytellers) )
                                         {
                                         ?>
                                         <tr>
@@ -247,8 +246,7 @@ session_start();
                                             <td><?php echo $row["FirstName"]; ?></td>
                                             <td><?php echo $row["LastName"]; ?></td>
                                             <td><?php echo $row["Email"]; ?></td>
-                                            <td><a href="users.php?storyid=<?php echo $row["id"]; ?>">Profile Details</a></td>
-
+                                            <td><a href="users.php?userid=<?php echo $row["id"]; ?>">Profile Details</a></td>
                                         </tr>
                                         <?php 
                                         $i++;

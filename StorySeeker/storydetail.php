@@ -197,11 +197,11 @@ session_start();
                                 </span>
 
                                 <div class="wrap-tags flex-w">
-                                    <a href="#" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="storydetail.php?storyid=<?php echo $populate_story["id"];?>&?rating=1"  class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         1 Star
                                     </a>
 
-                                    <a href="#" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="?rating=2" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         2 Stars
                                     </a>
 
@@ -331,56 +331,7 @@ session_start();
                                 </div>
                             </li>
 
-                            <li class="flex-w p-b-20">
-                                <a href="storydetail.html"
-                                    class="dis-block wrap-pic-w w-size22 m-r-20 trans-0-4 hov4">
-                                    <img src="../fashe/images/sin.jpg" alt="IMG-PRODUCT">
-                                </a>
 
-                                <div class="w-size23 p-t-5">
-                                    <a href="storydetail.html" class="s-text20">
-                                        Title of Story
-                                    </a>
-
-                                    <span class="dis-block s-text17 p-t-6">
-                                        Type of Story
-                                    </span>
-                                </div>
-                            </li>
-
-                            <li class="flex-w p-b-20">
-                                <a href="storydetail.html"
-                                    class="dis-block wrap-pic-w w-size22 m-r-20 trans-0-4 hov4">
-                                    <img src="../fashe/images/hypocrite.jpg" alt="IMG-PRODUCT">
-                                </a>
-
-                                <div class="w-size23 p-t-5">
-                                    <a href="storydetail.html" class="s-text20">
-                                        Title of Story
-                                    </a>
-
-                                    <span class="dis-block s-text17 p-t-6">
-                                        Type of Story
-                                    </span>
-                                </div>
-                            </li>
-
-                            <li class="flex-w p-b-20">
-                                <a href="storydetail.html"
-                                    class="dis-block wrap-pic-w w-size22 m-r-20 trans-0-4 hov4">
-                                    <img src="../fashe/images/dragon.jpeg" alt="IMG-PRODUCT">
-                                </a>
-
-                                <div class="w-size23 p-t-5">
-                                    <a href="storydetail.html" class="s-text20">
-                                        Title of Story
-                                    </a>
-
-                                    <span class="dis-block s-text17 p-t-6">
-                                        Type of Story
-                                    </span>
-                                </div>
-                            </li>
                         </ul>
 
                      

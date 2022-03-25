@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+      include("../connection.php");
+      include("../functions.php");
+      include("../admin_functions.php");
+      
+      //$admin_check = get_admin_by_id($con);
+      $story_teller = get_storyteller_by_id($con);
+      $published_stories = published__stories($con);
+      $pending_stories = pending__stories($con);
+      $rejected_stories = rejected__stories($con);
+      $total_stories = storytellertotal__stories($con);
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -67,11 +82,11 @@
       </div>
       <ul class="sidebar-menu list-unstyled">
         <!-- GET APPROPRIATE ICONS -->
-        <li class="sidebar-list-item"><a href="index.html" class="sidebar-link text-muted"><i
+        <li class="sidebar-list-item"><a href="index.php?adminid=39#home" class="sidebar-link text-muted"><i
               class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
-        <li class="sidebar-list-item"><a href="index.html#stories" class="sidebar-link text-muted"><i
+        <li class="sidebar-list-item"><a href="index.php?adminid=39#stories" class="sidebar-link text-muted"><i
               class="o-paper-stack-1 mr-3 text-gray"></i><span>Stories</span></a></li>
-        <li class="sidebar-list-item"><a href="index.html#users" class="sidebar-link text-muted"><i
+        <li class="sidebar-list-item"><a href="index.php?adminid=39#users" class="sidebar-link text-muted"><i
               class="o-user-1 mr-3 text-gray"></i><span>Users</span></a></li>
 
       </ul>
@@ -89,17 +104,22 @@
                 <div class="row align-items-center flex-row">
                   <div class="col-lg-5">
                     <div>
-                      <img src="../img/avatar-1.jpg" style="border-radius: 50%;">
+                      <img id="profileImage" src="" style="border-radius: 50%;" class="img-fluid rounded-circle shadow">
                     </div>
                   </div>
                   <div class="col-lg-5">
-                    <h2 class="mb-0 d-flex align-items-center"><span>Mark Stephen</span><span
+                    <h2 class="mb-0 d-flex align-items-center"><span><?php echo $story_teller['FirstName'];
+                                ?> <?php echo $story_teller['LastName'];
+                                ?></span><span
                         class="dot bg-green d-inline-block ml-3"></span></h2><span
                       class="text-muted text-uppercase small">Story Teller</span>
                     <hr>
+                    <form method="post">
+                    <input type='hidden' name='userid' value="<?php echo $story_teller["id"];?>" />
                     <button id="activatebtn" class="btn btn-primary">Activate</button>
                     <button id="deactivatebtn" class="btn btn-secondary">Deactivate</button>
                     <!-- <small class="text-muted">Lorem ipsum dolor sit</small> -->
+                    </form>
                   </div>
                   <div class="col-lg-2">
                     <h2 class="mb-0 d-flex align-items-center"><span>86%</span><span
@@ -114,38 +134,9 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="card">
-                      <div class="card-body">
-                        <div class="row align-items-center flex-row">
-                          <div class="col-lg-5">
-                            <h2 class="mb-0 d-flex align-items-center"><span>1.724</span><span class="dot bg-violet d-inline-block ml-3"></span></h2><span class="text-muted text-uppercase small">Server time</span>
-                            <hr><small class="text-muted">Lorem ipsum dolor sit</small>
-                          </div>
-                          <div class="col-lg-7">
-                            <canvas id="pieChartHome2"></canvas>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
           </div>
 
         </section>
-        <!-- <section class="py-5">
-                <div class="row mb-4">
-                    <div class="col-lg-4">
-                      <div class="card mb-4">
-                        <div class="card-header">
-                          <h2 class="h6 text-uppercase mb-0">Mark Stephen</h2>
-                        </div>
-                        <div class="card-body" style="margin: 0 auto;">
-                          <div>
-                            <img src="img/avatar-1.jpg" style="border-radius: 50%;">
-                          </div>
-                        </div>
-                      </div>
-                     
-                    </div>
-            </section> -->
 
         <section class="py-5">
           <div class="row">
@@ -155,7 +146,7 @@
                   <div class="dot mr-3 bg-green"></div>
                   <div class="text" style="margin-left: 4px;">
                     <h6 class="mb-0" style="color: #212529; text-align: left; margin-left: 4px;">Published Stories</h6>
-                    <span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;">32 / 50</span>
+                    <span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;"><?php echo $published_stories;?> / <?php echo $total_stories;?></span>
                   </div>
                 </div>
                 <div class="icon text-white bg-green col-md-3"><i class="fas fa-check-circle"></i></div>
@@ -167,7 +158,7 @@
                   <div class="dot mr-3 bg-orange"></div>
                   <div class="text" style="margin-left: 4px;">
                     <h6 class="mb-0" style="color: #212529; text-align: left; margin-left: 4px;">Pending Stories</h6>
-                    <span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;">13 / 50</span>
+                    <span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;"><?php echo $pending_stories;?> / <?php echo $total_stories;?></span>
                   </div>
                 </div>
                 <div class="icon text-white bg-orange"><i class="fas fa-spinner fa-spin"></i></div>
@@ -179,7 +170,7 @@
                   <div class="dot mr-3 bg-red"></div>
                   <div class="text" style="margin-left: 4px;">
                     <h6 class="mb-0" style="color: #212529; text-align: left; margin-left: 4px;">Rejected Stories</h6>
-                    <span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;">5 / 50</span>
+                    <span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;"><?php echo $rejected_stories;?> / <?php echo $total_stories;?></span>
                   </div>
                 </div>
                 <div class="icon text-white bg-red"><i class="fas fa-exclamation-circle"></i></div>
@@ -431,6 +422,17 @@
   <script src="../vendor/chart.js/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script src="../js/front.js"></script>
+  <script type='text/javascript'>
+      //use alternative image if Profile Image not found
+      document.getElementById('profileImage').src="../uploads/<?php echo $story_teller['ProfileImage'];?>";
+
+      document.getElementById('profileImage').onload = function() { 
+      }
+
+      document.getElementById('profileImage').onerror = function() { 
+        document.getElementById('profileImage').src="../img/avatar-1.jpg"; 
+      }
+    </script>
 </body>
 
 </html>

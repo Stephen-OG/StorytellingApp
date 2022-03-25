@@ -188,7 +188,7 @@
 				
 				echo "<script>alert('Story not added')</script>";
 			}
-				header("Location:signup.php");
+				header("Location:index.php");
 				die;
 		}
 	}
@@ -258,10 +258,10 @@
 				// Verify MYME type of the file
 				if(in_array($filetype, $allowed)){
 					// Check whether file exists before uploading it
-					if(file_exists("uploads/" . $filename)){
+					if(file_exists("../uploads/" . $filename)){
 						echo $filename . " is already exists.";
 					} else{
-						move_uploaded_file($_FILES["photo"]["tmp_name"], "uploads/" . $filename);
+						move_uploaded_file($_FILES["photo"]["tmp_name"], "../uploads/" . $filename);
 						echo "Your file was uploaded successfully.";
 						
 					} 

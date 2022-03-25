@@ -5,8 +5,7 @@
             include("../st_functions.php");
             include("../ss_functions.php");
             include("../admin_functions.php");
-            //$admin_check = get_admin_by_id($con);
-            //$published_stories = admin_published_stories($con);
+        
             $story = get_story_by_id($con);
             $approve = approve_story($con);
             $disapprove = disapprove_story($con);
@@ -128,11 +127,11 @@
             </div>
             <ul class="sidebar-menu list-unstyled">
                 <!-- GET APPROPRIATE ICONS -->
-                <li class="sidebar-list-item"><a href="index.html" class="sidebar-link text-muted"><i
+                <li class="sidebar-list-item"><a href="index.php?adminid=39#home" class="sidebar-link text-muted"><i
                             class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
-                <li class="sidebar-list-item"><a href="index.html#stories" class="sidebar-link text-muted"><i
+                <li class="sidebar-list-item"><a href="index.php?adminid=39#stories" class="sidebar-link text-muted"><i
                             class="o-paper-stack-1 mr-3 text-gray"></i><span>Stories</span></a></li>
-                <li class="sidebar-list-item"><a href="index.html#users" class="sidebar-link text-muted"><i
+                <li class="sidebar-list-item"><a href="index.php?adminid=39#users" class="sidebar-link text-muted"><i
                             class="o-user-1 mr-3 text-gray"></i><span>Users</span></a></li>
 
             </ul>
@@ -190,8 +189,9 @@
                                 </p>
 
                                 <p class="s-text8 p-t-10" style="display: inline-block; font-family: 'poppins';">
-                                    Status: &nbsp;
-                                <div class="icon-admin text-white bg-blue"><i class="fas fa-spinner fa-spin"></i></div>
+                                    Status: &nbsp; 
+                                    <?php echo $story['StoryStatus'];
+                                ?>
                                 </p>
 
 

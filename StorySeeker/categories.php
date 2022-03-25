@@ -563,7 +563,7 @@ session_start();
             // }
             var jsondata = [{"sid":sid, "uid":uid}];
             console.log(jsondata);
-            var jsonarray = JSON.parse(jsondata);
+            var jsonarray = JSON.stringify(jsondata);
             console.log(jsonarray);
             $.ajax({
                 type: "POST",
@@ -571,10 +571,10 @@ session_start();
                 // url: '../ss_functions.php',
                 url: 'savestory.php',
                 dataType: 'json',
-                data: dataBody,
+                data: jsonarray,
                 success: function(response) {
                     var jsonData = JSON.parse(response);
-
+                    console.log(jsonData)
                     // user is logged in successfully in the back-end
                     // let's redirect
                     if (jsonData.success == "1") {
