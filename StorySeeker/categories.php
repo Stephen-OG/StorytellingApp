@@ -1,18 +1,12 @@
 <?php
-session_start();
-
         include("../connection.php");
         include("../functions.php");
         include("../st_functions.php");
         include("../ss_functions.php");
-        //include("../savestory.php");
 
-      $check_login = user_login_check($con);
-      $update_profile = updateProfile($con);
-      $change_password = change_password($con);
-
-      $get_story_by_category = get_stories_by_category($con);
-      $save_story = save_story($con);
+        $check_login = user_login_check($con);
+        $get_story_by_category = get_stories_by_category($con);
+        $save_story = save_story($con);
 
 ?>
 
@@ -97,8 +91,14 @@ session_start();
                 <li class="nav-item dropdown mr-3"><a id="notifications" href="http://example.com"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle text-gray-400 px-1"><i class="fa fa-edit"></i></a>
-                    <div aria-labelledby="notifications" class="dropdown-menu"><a href="../StoryTeller/signup.php"
-                            class="dropdown-item">
+                    <div aria-labelledby="notifications" class="dropdown-menu">
+                    <?php if ($check_login['isStoryTeller']==0 && $check_login['isStorySeeker']==1){
+                             echo "<a href='./Become_a_teller.php' class='dropdown-item'>";
+                        }
+                        else{
+                            echo "<a href='../StoryTeller/index.php' class='dropdown-item'>";
+                        }
+                         ?>
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-sm bg-blue text-white"><i class="fas fa-upload"></i></div>
                                 <div class="text ml-2">
@@ -375,7 +375,7 @@ session_start();
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form method="POST" enctype="multipart/form-data">
+                    <form action="../functions.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="img">Profile Picture</label>
                             <input type="hidden" id="imagename" name="imagename"
@@ -422,22 +422,21 @@ session_start();
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form>
+                    <form action="../functions.php" method="POST">
                         <div class="form-group">
                             <label>Old Password</label>
-                            <input type="password" placeholder="Old Password" id="oldpassword" class="form-control">
+                            <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>New Password</label>
-                            <input type="password" placeholder="New Password" id="newpassword" class="form-control">
+                            <input type="password" name="password" placeholder="New Password" id="newpassword" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Confirm New Password</label>
-                            <input type="password" placeholder="Confirm New Password" id="confirnnewpassword"
-                                class="form-control">
+                            <input type="password" name="confirmpassword" placeholder="Confirm New Password" id="confirnnewpassword" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input type="submit" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
+                            <input type="submit" name="changePassword" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
@@ -469,54 +468,12 @@ session_start();
             </div>
         </div>
     </div>
+    <script src="../vendor/sweetalert/sweetalert.min.js"></script>
 
     <!-- Javascript Files -->
     <script src="../address.js"></script>
     <!-- <script>
-    document.getElementById("storyLocation").addEventListener("submit", function(e) {
-        e.preventDefault()
-        /*
-           the longitude and latitude values are automatically returned by the api and that's what you need 
-           to store in your database. 
-          
-           You can then use the stored lon and lat values to retrieve the address later. check the getAddress.js file,
-           you will see how that works. 
-          
-           
-          */
-        let longitude = chosenLocation.lon;
-        let latitude = chosenLocation.lat;
-        console.log(longitude);
-        let location = chosenLocation.city + ", " + chosenLocation.county;
-        console.log(location);
 
-        //let category = document.getElementById("categoryChosen").value;
-        let url = "{% url 'search' 3 99999999999 99999999991 22222222222 %}"
-        // url = url.replace("3", category)
-        // url = url.replace("99999999999", longitude)
-        // url = url.replace("99999999991", latitude)
-        // url = url.replace("22222222222", location)
-        // document.location.href = url;
-
-        var data = {
-
-            storyLocation: location,
-
-
-        }
-
-
-        console.log(data);
-        if (data.storyLocation != "") {
-            createStory();
-
-        } else {
-
-            swal("Not yet", "All fields are required!", "warning");
-
-        }
-
-    })
     </script> -->
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -543,12 +500,12 @@ session_start();
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/sweetalert/sweetalert.min.js"></script>
     <script type="text/javascript">
-    $('.block2-btn-addcart').each(function() {
-            var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-            $(this).on('click', function() {
-                //swal(nameProduct, "is added to cart !", "success");
-            });
-        });
+    // $('.block2-btn-addcart').each(function() {
+    //         var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+    //         $(this).on('click', function() {
+    //             //swal(nameProduct, "is added to cart !", "success");
+    //         });
+    //     });
 
         $('.block2-btn-addwishlist').each(function() {
             var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
@@ -558,56 +515,6 @@ session_start();
             });
         });
     
-
-    // $('.block2-btn-addwishlist').each(function() {
-    //     //e.preventDefault();
-    //     var nameProduct = $('.block2-btn-addwishlist').parent().parent().parent().find('.block2-name').html();
-    //     $('.block2-btn-addwishlist').on('click', function(e) {
-    //         e.preventDefault();
-    //         var sid = $(this).parent().parent().parent().find('.story_id').val();
-    //         var uid = $(this).parent().parent().parent().find('.user_id').val();
-    //         console.log(sid);
-    //         console.log(uid);
-    //         console.log('I got here');
-    //         // var dataBody = {
-    //         //     sid: sid,
-    //         //     uid: uid
-    //         // }
-    //         var jsondata = [{"sid":sid, "uid":uid}];
-    //         console.log(jsondata);
-    //         var jsonarray = JSON.stringify(jsondata);
-    //         console.log(jsonarray);
-    //         $.ajax({
-    //             type: "POST",
-    //             //Try these 2 URLs
-    //             // url: '../ss_functions.php',
-    //             url: 'savestory.php',
-    //             dataType: 'json',
-    //             data: jsonarray,
-    //             success: function(response) {
-    //                 var jsonData = JSON.parse(response);
-    //                 console.log(jsonData)
-    //                 // user is logged in successfully in the back-end
-    //                 // let's redirect
-    //                 if (jsonData.success == "1") {
-    //                     swal(nameProduct, "is added to saved stories!", "success");
-    //                 }
-    //                 if (jsonData.success == "2") {
-    //                     swal(nameProduct, "is already in your saved stories!", "warning");
-    //                 } else {
-    //                     swal(nameProduct,
-    //                         "could not be added to saved stories! Try again later",
-    //                         "error");
-    //                 }
-    //             },
-    //             error: function(){
-    //                 swal(nameProduct,
-    //                         "could not be added to saved stories! Try again later",
-    //                         "error");
-    //             }
-    //         })
-
-    //     });
 
     //use alternative image if Profile Image not found
     document.getElementById('profileImage').src = "../uploads/<?php echo $check_login['ProfileImage'];?>";
@@ -624,6 +531,7 @@ session_start();
     </script>
     <!--===============================================================================================-->
     <script src="../fashe/js/main.js"></script>
+    <?php include("../footer.php")?>
 
 </body>
 

@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 include("../connection.php");
 include("../functions.php");
 include("../st_functions.php");
@@ -8,8 +6,8 @@ include("../ss_functions.php");
 
 
 $check_login = user_login_check($con);
-$update_profile = updateProfile($con);
-$change_password = change_password($con);
+// $update_profile = updateProfile($con);
+//$change_password = change_password($con);
 
 $my_stories = seeker_stories($con);
 $save_story = save_story($con);
@@ -102,7 +100,15 @@ $save_story = save_story($con);
                 </li>
 
                 <li class="nav-item dropdown mr-3"><a id="notifications" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle text-gray-400 px-1"><i class="fa fa-edit"></i></a>
-                    <div aria-labelledby="notifications" class="dropdown-menu"><a href="./Become_a_teller.php" class="dropdown-item">
+                    <div aria-labelledby="notifications" class="dropdown-menu">
+                        <?php if ($check_login['isStoryTeller']==0 && $check_login['isStorySeeker']==1){
+                             echo "<a href='./Become_a_teller.php' class='dropdown-item'>";
+                        }
+                        else{
+                            echo "<a href='../StoryTeller/index.php' class='dropdown-item'>";
+                        }
+                        //  <a href="./Become_a_teller.php" class="dropdown-item">
+                         ?>
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-sm bg-blue text-white"><i class="fas fa-upload"></i></div>
                                 <div class="text ml-2">
@@ -335,7 +341,7 @@ $save_story = save_story($con);
                             while ($row = mysqli_fetch_array($my_stories)) {
                             ?>
                                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
-                                    <form method="post">
+                                    <form  method="post">
                                         <!-- Block2 -->
                                         <div class="block2">
                                             <input type="hidden" class="story_id" name="story_id" value="<?php echo $row["id"]; ?>">
@@ -347,7 +353,8 @@ $save_story = save_story($con);
                                                 <div class="block2-overlay trans-0-4">
                                                     <button type="submit" name="btnsavestory" class="block2-btn-addwishlist hov-pointer trans-0-4">
                                                         <!-- <button type="submit" id="save_story" class="btn btn-primary shadow px-5"> -->
-                                                        <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                                        <i class="icon-wishlist icon_heart_alt"></i>
+
                                                         <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
                                                     </button>
 
@@ -491,7 +498,7 @@ $save_story = save_story($con);
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form method="POST" enctype="multipart/form-data">
+                    <form action="../functions.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="img">Profile Picture</label>
                             <input type="hidden" id="imagename" name="imagename" value="<?php echo $check_login['ProfileImage'];?>"  class="form-control" required>
@@ -531,7 +538,7 @@ $save_story = save_story($con);
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form method="POST">
+                    <form action="../functions.php" method="POST">
                         <div class="form-group">
                             <label>Old Password</label>
                             <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
@@ -550,7 +557,7 @@ $save_story = save_story($con);
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                    <button type="button" name="changePassword" data-dismiss="modal" class="btn btn-secondary">Close</button>
                     <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                 </div>
             </div>
@@ -574,7 +581,7 @@ $save_story = save_story($con);
             </div>
         </div>
     </div>
-
+    <script src="../vendor/sweetalert/sweetalert.min.js"></script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="../fashe/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
@@ -601,12 +608,6 @@ $save_story = save_story($con);
     <!-- <script type="text/javascript" src="../fashe/vendor/sweetalert/sweetalert.min.js"></script> -->
     <script type="text/javascript">
         
-        $('.block2-btn-addcart').each(function() {
-            var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-            $(this).on('click', function() {
-                //swal(nameProduct, "is added to cart !", "success");
-            });
-        });
 
         $('.block2-btn-addwishlist').each(function() {
             var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
@@ -631,6 +632,7 @@ $save_story = save_story($con);
     </script> -->
     <!--===============================================================================================-->
     <script src="../fashe/js/main.js"></script>
+    <?php include("../footer.php")?>
 
 </body>
 

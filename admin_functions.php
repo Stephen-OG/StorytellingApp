@@ -1,4 +1,5 @@
 <?php
+    include("connection.php");
 
 function get_admin_by_id($con){
     // Initialize URL to the variable

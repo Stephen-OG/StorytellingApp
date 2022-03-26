@@ -90,11 +90,11 @@
 		return mysqli_fetch_assoc($result);
 	}
 
-	function edit_story($con){
-
-		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['editStory']))
+	//edit story 
+		if(isset($_POST['editStory']))
 		{
 			// I called the get_story_by_id function to edit a story
+			include("connection.php");
 			$result = get_story_by_id($con);
 			$story_id = $result['id'];
 			$title = $_POST['title'];
@@ -104,20 +104,24 @@
 				$filename = $_POST['imagename'];
 			}
 			mysqli_query($con,"UPDATE stories set Title='$title', Body='$body', ImageName='$filename' WHERE id = '$story_id'");				
-	
-			header("Location:index.php");
-				die;
-		}
-	}
+			$_SESSION['status'] = "Story Updated";
+		    $_SESSION['status_code'] = "success";
 
-	function delete_added_story($con){
-		if($_SERVER['REQUEST_METHOD'] == "POST"){
+			header("Location:StoryTeller/index.php");
+			die;
+		}
+	
+    if(isset($_POST['deletestory'])){
 			{
+				include("connection.php");
+
 				$storyid = $_POST['storyid'];
 	
 				mysqli_query($con,"DELETE FROM stories WHERE id = '$storyid' ");
-				echo "<script>alert('Story Deleted')</script>";       
+				$_SESSION['status'] = "Deleted Successfully";
+		    	$_SESSION['status_code'] = "success";
+            	
+				header("Location:StoryTeller/index.php");  
 
 			}
 		}
-	}

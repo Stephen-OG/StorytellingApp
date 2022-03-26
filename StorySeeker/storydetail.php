@@ -1,14 +1,12 @@
 <?php
-session_start();
-
         include("../connection.php");
         include("../functions.php");
         include("../st_functions.php");
         include("../ss_functions.php");
 
       $check_login = user_login_check($con);
-      $update_profile = updateProfile($con);
-      $change_password = change_password($con);
+    //   $update_profile = updateProfile($con);
+      //$change_password = change_password($con);
       $populate_story = get_story_by_id($con);
 
       $story_user_profile = story_teller_details($con);
@@ -96,8 +94,15 @@ session_start();
                 <li class="nav-item dropdown mr-3"><a id="notifications" href="http://example.com"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle text-gray-400 px-1"><i class="fa fa-edit"></i></a>
-                    <div aria-labelledby="notifications" class="dropdown-menu"><a href="../StoryTeller/signup.php"
-                            class="dropdown-item">
+                    <div aria-labelledby="notifications" class="dropdown-menu">
+                    <?php if ($check_login['isStoryTeller']==0 && $check_login['isStorySeeker']==1){
+                             echo "<a href='./Become_a_teller.php' class='dropdown-item'>";
+                        }
+                        else{
+                            echo "<a href='../StoryTeller/index.php' class='dropdown-item'>";
+                        }
+                        //  <a href="./Become_a_teller.php" class="dropdown-item">
+                         ?>
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-sm bg-blue text-white"><i class="fas fa-upload"></i></div>
                                 <div class="text ml-2">
@@ -385,7 +390,7 @@ session_start();
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form method="POST" enctype="multipart/form-data">
+                    <form action="../functions.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="img">Profile Picture</label>
                             <input type="hidden" id="imagename" name="imagename" value="<?php echo $check_login['ProfileImage'];?>"  class="form-control" required>
@@ -428,22 +433,21 @@ session_start();
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form>
+                    <form action="../functions.php" method="POST">
                         <div class="form-group">
                             <label>Old Password</label>
-                            <input type="password" placeholder="Old Password" id="oldpassword" class="form-control">
+                            <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>New Password</label>
-                            <input type="password" placeholder="New Password" id="newpassword" class="form-control">
+                            <input type="password" name="password" placeholder="New Password" id="newpassword" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Confirm New Password</label>
-                            <input type="password" placeholder="Confirm New Password" id="confirnnewpassword"
-                                class="form-control">
+                            <input type="password" name="confirmpassword" placeholder="Confirm New Password" id="confirnnewpassword" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input type="submit" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
+                            <input type="submit" name="changePassword" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
@@ -475,6 +479,7 @@ session_start();
             </div>
         </div>
     </div>
+    <script src="../vendor/sweetalert/sweetalert.min.js"></script>
 
     <!-- Javascript Files -->
     <script src="../address.js"></script>
@@ -580,7 +585,9 @@ session_start();
     </script>
     <!--===============================================================================================-->
     <script src="../fashe/js/main.js"></script>
+    <?php include("../footer.php")?>
 
 </body>
+
 
 </html>

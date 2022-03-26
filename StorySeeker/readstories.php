@@ -1,17 +1,15 @@
 <?php
-session_start();
-
         include("../connection.php");
         include("../functions.php");
         include("../st_functions.php");
         include("../ss_functions.php");
 
       $check_login = user_login_check($con);
-      $update_profile = updateProfile($con);
-      $change_password = change_password($con);
+    //   $update_profile = updateProfile($con);
+      //$change_password = change_password($con);
 
       $read_stories = read_stories($con);
-      $delete_read_stories = delete_read_stories($con);
+      //$delete_read_stories = delete_read_stories($con);
 
 ?>
 
@@ -94,8 +92,14 @@ session_start();
                 <li class="nav-item dropdown mr-3"><a id="notifications" href="http://example.com"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle text-gray-400 px-1"><i class="fa fa-edit"></i></a>
-                    <div aria-labelledby="notifications" class="dropdown-menu"><a href="../StoryTeller/signup.php"
-                            class="dropdown-item">
+                    <div aria-labelledby="notifications" class="dropdown-menu">
+                    <?php if ($check_login['isStoryTeller']==0 && $check_login['isStorySeeker']==1){
+                             echo "<a href='./Become_a_teller.php' class='dropdown-item'>";
+                        }
+                        else{
+                            echo "<a href='../StoryTeller/index.php' class='dropdown-item'>";
+                        }
+                         ?>
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-sm bg-blue text-white"><i class="fas fa-upload"></i></div>
                                 <div class="text ml-2">
@@ -168,9 +172,9 @@ session_start();
 									<a href="storydetail.php?storyid=<?php echo $story_data["id"];?>" class="m-text24" style="font-family: 'Poppins';">
 										<?php echo $story_data['Title']; ?>
 									</a>
-                                    <form method="post">
+                                    <form action="../ss_functions.php" method="post">
                                     <input type='hidden' name='storyid' value="<?php echo $story_data["id"];?>" />
-                                    <button type=submit style="float: right;" title="Remove from read stories"><i class="fas fa-trash"></i><a href="../delete.php?storyid=<?php echo $story_data["id"];?>"></a></button>
+                                    <button type=submit name="deleteread" style="float: right;" title="Remove from read stories"><i class="fas fa-trash"></i><a href="../delete.php?storyid=<?php echo $story_data["id"];?>"></a></button>
                                     </form>
                                 </h4>
 
@@ -273,30 +277,7 @@ session_start();
                             </li>
                         </ul>
 
-                        <!-- Recommended Books -->
-                        <h4 class="m-text23 p-t-65 p-b-34">
-                            Recommendations
-                        </h4>
-
-                        <ul class="bgwhite">
-                            <li class="flex-w p-b-20">
-                                <a href="storydetail.html"
-                                    class="dis-block wrap-pic-w w-size22 m-r-20 trans-0-4 hov4">
-                                    <img src="../fashe/images/memory.jpg" alt="IMG-PRODUCT">
-                                </a>
-
-                                <div class="w-size23 p-t-5">
-                                    <a href="storydetail.html" class="s-text20">
-                                        Title of Story
-                                    </a>
-
-                                    <span class="dis-block s-text17 p-t-6">
-                                        Type of Story
-                                    </span>
-                                </div>
-                            </li>
-
-                        </ul>
+                        
                     </div>
                 </div>
             </div>
@@ -348,7 +329,7 @@ session_start();
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form method="POST" enctype="multipart/form-data">
+                    <form action="../functions.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="img">Profile Picture</label>
                             <input type="hidden" id="imagename" name="imagename" value="<?php echo $check_login['ProfileImage'];?>"  class="form-control" required>
@@ -391,22 +372,21 @@ session_start();
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form>
+                    <form action="../functions.php" method="POST">
                         <div class="form-group">
                             <label>Old Password</label>
-                            <input type="password" placeholder="Old Password" id="oldpassword" class="form-control">
+                            <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>New Password</label>
-                            <input type="password" placeholder="New Password" id="newpassword" class="form-control">
+                            <input type="password" name="password" placeholder="New Password" id="newpassword" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Confirm New Password</label>
-                            <input type="password" placeholder="Confirm New Password" id="confirnnewpassword"
-                                class="form-control">
+                            <input type="password" name="confirmpassword" placeholder="Confirm New Password" id="confirnnewpassword" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input type="submit" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
+                            <input type="submit" name="changePassword" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
@@ -438,6 +418,7 @@ session_start();
             </div>
         </div>
     </div>
+    <script src="../vendor/sweetalert/sweetalert.min.js"></script>
 
     <!-- Javascript Files -->
     <script src="../address.js"></script>
@@ -543,6 +524,7 @@ session_start();
     </script>
     <!--===============================================================================================-->
     <script src="../fashe/js/main.js"></script>
+    <?php include("../footer.php")?>
 
 </body>
 

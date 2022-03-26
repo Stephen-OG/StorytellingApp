@@ -1,10 +1,7 @@
 <?php
-session_start();
-
       include("connection.php");
       include("functions.php");
 
-      $user_Login = login_data($con);
       
 ?>
 
@@ -63,7 +60,7 @@ session_start();
                   <label for="customCheck1" class="custom-control-label">Remember Me</label>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary shadow px-5">Sign in</button>
+              <button name="loginbtn" type="submit" class="btn btn-primary shadow px-5">Sign in</button>
               <br>
               <br>
               <small>Don't have an account? <a href="signup.php">Sign up</a></small>
@@ -86,6 +83,7 @@ session_start();
       </div>
     </div>
     <!-- JavaScript files-->
+    <script src="vendor/sweetalert/sweetalert.min.js"></script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper.js/umd/popper.min.js"> </script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -93,5 +91,6 @@ session_start();
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="js/front.js"></script>
+    <?php include("footer.php")?>
   </body>
 </html>

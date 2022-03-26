@@ -32,40 +32,6 @@ function seeker_stories($con){
     return mysqli_query($con,"SELECT * FROM stories WHERE StoryStatus = 1");
 }
 
-
-// function save_story($sid, $uid){
-//     if($_SERVER['REQUEST_METHOD'] == "POST"){
-//         echo "<script>alert('i entered this php file')</script>"; 
-//         // $sid = $_POST['story_id'];
-//         // $uid = $_POST['user_id'];
-
-//         if(empty($sid) && empty($uid))
-// 			{
-// 				//echo "<script>alert('There are no fields to generate a report')</script>"; 
-//                 echo json_encode(array('success' => 3));
-//                 //echo "<script src'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('There are no fields to generate a report', '', 'error')</script>";
-// 			}
-
-//             $result = mysqli_query(mysqli_connect("localhost","root","","storytellingdb"), "SELECT * FROM user_saved_stories WHERE StoryId='$sid' ");
-//             if (mysqli_num_rows($result) > 0 ){
-
-//                 //header("Location:index.php?error=story already exists")
-//                 //echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Story added', '', 'success')</script>";
-//                 echo json_encode(array('success' => 2));
-
-//             }
-//             else 
-//             {
-//                 mysqli_query(mysqli_connect("localhost","root","","storytellingdb"), "INSERT INTO user_saved_stories (UserId,StoryId) VALUES ('$uid','$sid')");
-//                 //echo "<script>alert('story added')</script>";
-//                 //echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Story added', '', 'success')</script>";
-//                 echo json_encode(array('success' => 1));
-
-//             }
-//     }
-    
-// }
-
 //before code
 function save_story($con){
     if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -105,18 +71,20 @@ function saved_stories($con){
 }
 
 
-function delete_saved_stories($con){
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
+// function delete_saved_stories($con){
+    if(isset($_POST['deleteSaved'])){
 		{
+            include("connection.php");
             $storyid = $_POST['storyid'];
 
-
             mysqli_query($con,"DELETE FROM user_saved_stories WHERE StoryId = '$storyid' ");
-            header("Location:savedstories.php?story deleted");
+            $_SESSION['status'] = "Deleted Successfully";
+		    $_SESSION['status_code'] = "success";
+            header("Location:StorySeeker/savedstories.php");
 
         }
     }
-}
+//}
 
 function save_read_stories($con) {
     if(isset($_SESSION['id']))
@@ -136,6 +104,7 @@ function save_read_stories($con) {
 }
 
 function read_stories($con){
+    
     if(isset($_SESSION['id']))
 		{
             $id = $_SESSION['id'];
@@ -143,16 +112,18 @@ function read_stories($con){
         }
 }
 
-function delete_read_stories($con){
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
+    if(isset($_POST['deleteread'])){
 		{
+            include("connection.php");
             $storyid = $_POST['storyid'];
 
             mysqli_query($con,"DELETE FROM user_read_stories WHERE StoryId = '$storyid' ");
-            header("Location:readstories.php?story deleted");
+            $_SESSION['status'] = "Deleted Successfully";
+		    $_SESSION['status_code'] = "success";
+            header("Location:StorySeeker/readstories.php");
         }
     }
-}
+
 
 function become_a_story_teller($con)
 {
@@ -164,6 +135,8 @@ function become_a_story_teller($con)
             $become_teller = $_POST['isStoryTeller'];
         
         mysqli_query($con,"UPDATE users set isStoryTeller='$become_teller' WHERE id = '$id'");				
+        $_SESSION['status'] = "You are now a Story Teller";
+		$_SESSION['status_code'] = "success";
 
         header("Location:../StoryTeller/index.php");
             die;

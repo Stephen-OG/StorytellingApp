@@ -1,5 +1,4 @@
 <?php
-
 // try{
 // 	$dsn = "mysql: dbname=id18622325_storytellingdb; host=127.0.0.1";
 // 	$user = "id18622325_root";
@@ -10,6 +9,7 @@
 // 	catch(PDOException $e){
 // 		die("Error Connecting: ".$e->getMessage());
 // 	}
+session_start();
 
 $dbhost = "localhost";
 $dbuser = "root";

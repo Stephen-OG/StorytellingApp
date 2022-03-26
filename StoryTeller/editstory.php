@@ -1,16 +1,14 @@
 <?php
-session_start();
-
       include("../connection.php");
       include("../functions.php");
       include("../st_functions.php");
 
 
       $check_login = user_login_check($con);
-      $update_profile = updateProfile($con);
-      $change_password = change_password($con);
+      //$update_profile = updateProfile($con);
+      //$change_password = change_password($con);
       $populate_story = get_story_by_id($con);
-      $edit_story = edit_story($con);
+      //$edit_story = edit_story($con);
 
 ?>
 
@@ -74,7 +72,7 @@ session_start();
         <li class="sidebar-list-item"><a href="index.php" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
               <li class="sidebar-list-item"><a href="addstory.php" class="sidebar-link text-muted"><i class="o-paper-stack-1 mr-3 text-gray"></i><span>Add Story</span></a></li>
               <li class="sidebar-list-item"><a href="stories.php" class="sidebar-link text-muted active"><i class="o-archive-folder-1 mr-3 text-gray"></i><span>My Stories</span></a></li>
-              <li class="sidebar-list-item"><a href="ss_index.html" class="sidebar-link text-muted"><i class="o-search-magnify-1 mr-3 text-gray"></i><span>Seek Stories</span></a></li>           
+              <li class="sidebar-list-item"><a href="../StorySeeker/index.php" class="sidebar-link text-muted"><i class="o-search-magnify-1 mr-3 text-gray"></i><span>Seek Stories</span></a></li>           
       </ul>
       <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">EXTRAS
       </div>
@@ -98,7 +96,7 @@ session_start();
                   <h3 class="h6 text-uppercase mb-0">Edit Story</h3>
                 </div>
                 <div class="card-body">
-                  <form class="form-horizontal" id="editStoryForm" method="POST" enctype="multipart/form-data">
+                  <form action="../st_functions.php" class="form-horizontal" id="editStoryForm" method="POST" enctype="multipart/form-data">
 
                     <div class="form-group row">
                       <label class="col-md-3 form-control-label">Title</label>
@@ -156,7 +154,7 @@ session_start();
                   <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form method="POST" enctype="multipart/form-data">
+                    <form action="../functions.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="img">Profile Picture</label>
                             <input type="hidden" id="imagename" name="imagename" value="<?php echo $check_login['ProfileImage'];?>"  class="form-control" required>
@@ -199,23 +197,23 @@ session_start();
                   <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                     <p>Lorem ipsum dolor sit amet consectetur.</p>
-                    <form method="POST">
-                    <div class="form-group">       
-                      <label>Old Password</label>
-                      <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
-                    </div>
-                    <div class="form-group">       
-                        <label>New Password</label>
-                        <input type="password" name="password" placeholder="New Password" id="newpassword" class="form-control">
-                      </div>
-                      <div class="form-group">       
-                        <label>Confirm New Password</label>
-                        <input type="password" name="confirmpassword" placeholder="Confirm New Password" id="confirnnewpassword" class="form-control">
-                      </div>
-                    <div class="form-group">
-                      <input type="submit" name="changePassword" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
-                    </div>
-                  </form>
+                    <form action="../functions.php" method="POST">
+                        <div class="form-group">
+                            <label>Old Password</label>
+                            <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" name="password" placeholder="New Password" id="newpassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" name="confirmpassword" placeholder="Confirm New Password" id="confirnnewpassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="changePassword" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
+                        </div>
+                    </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
@@ -303,6 +301,7 @@ session_start();
     });
 
   </script> -->
+  <script src="../vendor/sweetalert/sweetalert.min.js"></script>
   <script src="../vendor/jquery/jquery.min.js"></script>
   <script src="../vendor/popper.js/umd/popper.min.js"> </script>
   <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -321,6 +320,8 @@ session_start();
         document.getElementById('profileImage').src="../img/avatar-6.jpg"; 
       }
 </script>
+<?php include("../footer.php")?>
+
 </body>
 
 </html>

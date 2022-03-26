@@ -1,5 +1,4 @@
 <?php
-
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 
@@ -7,8 +6,8 @@
 	require 'PHPMailer-master/src/PHPMailer.php';
 	require 'PHPMailer-master/src/SMTP.php';
 
-	function signup_data($con) {
-		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['btnSubmitForm'])){
+		if(isset($_POST['btnSubmitForm'])){
+			include("connection.php");
 
 			$first_name = $_POST['firstname'];
 			$last_name = $_POST['lastname'];
@@ -71,11 +70,15 @@
 					if(mysqli_query($con,$query))
 					{
 						//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signup confirmed');
+						$_SESSION['status'] = "Registered Successfully";
+						$_SESSION['status_code'] = "success";
 						header("Location:signin.php");
 						die;
 					}
 					else{
-						echo "<script>alert('failed to add')</script>";
+						$_SESSION['status'] = "Data Not Registered";
+						$_SESSION['status_code'] = "error";
+						//echo "<script>alert('failed to add')</script>";
 					}	
 
 				//echo '<script> alert("Registered successfully!");document.location="signin.php"</script>';
@@ -84,63 +87,73 @@
 			}
 			}				
 		}
-	}
+	// }
 
-	function login_data($con){
-		if($_SERVER['REQUEST_METHOD'] == "POST")
+	if(isset($_POST['loginbtn'])){
 		{
-			//something was posted
-			$email = $_POST['email'];
-			$password = $_POST['password'];
+			include("connection.php");
 
-			if(empty($email) && empty($password))
-			{
-				echo "<script>alert('There are no fields to generate a report')</script>"; 
-			}
+		//something was posted
+		$email = $_POST['email'];
+		$password = $_POST['password'];
 
-				//read from database
-				$result = mysqli_query($con, "SELECT * FROM users WHERE Email='$email' LIMIT 1");
-
-				if($result)
-				{
-					if($result && mysqli_num_rows($result) > 0)
-					{
-						$user_data = mysqli_fetch_assoc($result);
-						
-						if(!password_verify($password, $user_data['Password']))
-						{
-							echo 'password do not match';
-						}
-						else{
-							if(isset($_POST['remember']))
-							{
-								setcookie('email',$email, time()+30*24*60*60);
-								setcookie('password',$password, time()+30*24*60*60);
-							} else{
-								setcookie('email','');
-								setcookie('password','');
-							}
-
-							$_SESSION['id'] = $user_data['id'];							
-
-							if($user_data['isStoryTeller'] == 1 && $user_data['isStorySeeker']== 1){
-								//email_sender($email, $first_name, 'Hi,<br>You have just signed in on the Story Telling app.','Signin confirmed');
-								header("Location:StoryTeller/index.php");
-								die;
-							}
-							elseif($user_data['isStoryTeller']== 0 && $user_data['isStorySeeker'] == 1){
-								//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signin confirmed');
-								header("Location:StorySeeker/index.php");
-								die;
-							}
-																		
-						}
-					}
-				}			
-				// echo '<div class="alert alert-danger alert-dismissible mt-3" id="flash-msg">
-				// <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				// <strong>Error !</strong> Wrong email or password !</div>';		
+		if(empty($email) && empty($password))
+		{
+			echo "<script>alert('There are no fields to generate a report')</script>"; 
 		}
+
+			//read from database
+			$result = mysqli_query($con, "SELECT * FROM users WHERE Email='$email' LIMIT 1");
+
+			if($result)
+			{
+				if($result && mysqli_num_rows($result) > 0)
+				{
+					$user_data = mysqli_fetch_assoc($result);
+					
+					if(!password_verify($password, $user_data['Password']))
+					{
+						echo 'password do not match';
+					}
+					else{
+						if(isset($_POST['remember']))
+						{
+							setcookie('email',$email, time()+30*24*60*60);
+							setcookie('password',$password, time()+30*24*60*60);
+						} else{
+							setcookie('email','');
+							setcookie('password','');
+						}
+
+						$_SESSION['id'] = $user_data['id'];							
+
+						if($user_data['isStoryTeller'] == 1 && $user_data['isStorySeeker']== 1){
+							//email_sender($email, $first_name, 'Hi,<br>You have just signed in on the Story Telling app.','Signin confirmed');
+							$_SESSION['status'] = "Logged In ";
+							$_SESSION['status_code'] = "success";
+							header("Location:StoryTeller/index.php");
+							die;
+						}
+						elseif($user_data['isStoryTeller']== 0 && $user_data['isStorySeeker'] == 1){
+							//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signin confirmed');
+							$_SESSION['status'] = "Loggen In";
+							$_SESSION['status_code'] = "success";
+							header("Location:StorySeeker/index.php");
+							die;
+						}else{
+						$_SESSION['status'] = "User Does Not Exist";
+						$_SESSION['status_code'] = "error";
+						header("Location:signin.php?User Does Not Exist");	
+						}								
+					}
+				}
+				
+			}	
+						$_SESSION['status'] = "User Does Not Exist";
+						$_SESSION['status_code'] = "error";
+						header("Location:signin.php?User Does Not Exist");				
+		}
+		
 	}
 
 
@@ -165,9 +178,11 @@
 	
 	}
 
-	function updateProfile($con){
+	// Update User Profile
 		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['updateProfile']))
 		{
+			include("connection.php");
+
 			if(isset($_SESSION['id']))
 			{
 				$id = $_SESSION['id'];
@@ -179,18 +194,25 @@
 					$filename = $_POST['imagename'];
 				}
 				mysqli_query($con,"UPDATE users set FirstName='$first_name', LastName='$last_name', ProfileImage='$filename' WHERE id = '$id'");				
-				
-				echo "<script>alert('Story not added')</script>";
+				$_SESSION['status'] = "Profile Updated ";
+				$_SESSION['status_code'] = "success";
+				if($user_data['isStorySeeker'] == 1 && $user_data['isStoryTeller'] == 0){
+					header("Location:StorySeeker/index.php");
+					}
+					else{
+						header("Location:StoryTeller/index.php");
+					}
 			}
-				header("Location:index.php");
-				die;
-		}
-	}
-	
-	function add_story($con){
 
-		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addStory']))
+		}
+
+	
+		//add story
+
+		if(isset($_POST['addStory']))
 		{
+			include("connection.php");
+
 
 		$title = $_POST['title'];
 
@@ -211,15 +233,15 @@
 
 				$result = mysqli_query($con,$query);
 				if ($result){
-				echo "<script>alert('Story Added Successfully')</script>";
-				
-				
-				header("Location:index.php");
-				// die;
+					$_SESSION['status'] = "Story Added Successfully";
+					$_SESSION['status_code'] = "success";
+					header("Location:StoryTeller/index.php");
+				 	die;
 				}
 				else{
-					echo "<script>alert('Story not added')</script>";
-					header("Location:addstory.php");
+					$_SESSION['status'] = "Story not added";
+		    		$_SESSION['status_code'] = "error";
+					header("Location:StoryTeller/index.php");
 					die;
 					}				
 			}				
@@ -228,7 +250,6 @@
 				die;
 			}
 		}
-	}
 
 
 	function uploadFile(){
@@ -271,16 +292,12 @@
 		return $filename;
 	}
 
-	function change_password($con){
-		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['changePassword'])){
+		if(isset($_POST['changePassword'])){
+			include("connection.php");
 		$current_password = $_POST['currentpassword'];
 		$password = $_POST['password'];
 		$confirm_password = $_POST['confirmpassword'];
-
-		if( $password != $confirm_password){
-			echo 'confirm password does not match the password';
-			die;
-		}else{	
+	
 			if(isset($_SESSION['id']))
 			{
 				$user_id = $_SESSION['id'];
@@ -294,13 +311,37 @@
 
 					$user_data = mysqli_fetch_assoc($result);
 
+					if( $password != $confirm_password){
+						$_SESSION['status'] = "confirm password does not match the password";
+						$_SESSION['status_code'] = "error";
+						if($user_data['isStorySeeker'] == 1 && $user_data['isStoryTeller'] == 0){
+							header("Location:StorySeeker/index.php");
+							}
+							else{
+								header("Location:StoryTeller/index.php");
+							}
+					}else{
+
 					if(!password_verify($current_password, $user_data['Password'])){
-						echo 'incorrect password';
+						$_SESSION['status'] = "Incorrect Password";
+						$_SESSION['status_code'] = "error";
+						if($user_data['isStorySeeker'] == 1 && $user_data['isStoryTeller'] == 0){
+							header("Location:StorySeeker/index.php");
+							}
+							else{
+								header("Location:StoryTeller/index.php");
+							}
 					}else{
 						$hashed_password = password_hash($confirm_password, PASSWORD_DEFAULT);
 						mysqli_query($con, "UPDATE users set Password='$hashed_password' WHERE id = '$user_id'" );
-						
-						header("Location:index.php");
+						$_SESSION['status'] = "Password Changed";
+						$_SESSION['status_code'] = "success";
+						if($user_data['isStorySeeker'] == 1 && $user_data['isStoryTeller'] == 0){
+						header("Location:StorySeeker/index.php");
+						}
+						else{
+							header("Location:StoryTeller/index.php");
+						}
 					}
 				}
 			}
@@ -308,7 +349,6 @@
 		}
 	}
 	}
-}
 
 	function email_sender($toMailAddress, $toName, $body, $subject)
 	{

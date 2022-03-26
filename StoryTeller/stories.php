@@ -1,15 +1,11 @@
 <?php
-session_start();
-
       include("../connection.php");
       include("../functions.php");
       include("../st_functions.php");
 
       $check_login = user_login_check($con);
-      $update_profile = updateProfile($con);
-      $change_password = change_password($con);
+
       $my_stories = my_stories($con);
-      $delete_story = delete_added_story($con);
 ?>    
 
 <!DOCTYPE html>
@@ -71,7 +67,7 @@ session_start();
               <li class="sidebar-list-item"><a href="index.php" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
               <li class="sidebar-list-item"><a href="addstory.php" class="sidebar-link text-muted"><i class="o-paper-stack-1 mr-3 text-gray"></i><span>Add Story</span></a></li>
               <li class="sidebar-list-item"><a href="stories.php" class="sidebar-link text-muted active"><i class="o-archive-folder-1 mr-3 text-gray"></i><span>My Stories</span></a></li>
-              <li class="sidebar-list-item"><a href="ss_index.php" class="sidebar-link text-muted"><i class="o-search-magnify-1 mr-3 text-gray"></i><span>Seek Stories</span></a></li>           
+              <li class="sidebar-list-item"><a href="../StorySeeker/index.php" class="sidebar-link text-muted"><i class="o-search-magnify-1 mr-3 text-gray"></i><span>Seek Stories</span></a></li>           
         </ul>
         <!-- <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">EXTRAS</div>
         <ul class="sidebar-menu list-unstyled">
@@ -134,9 +130,9 @@ session_start();
                         </a>
                         </div>
                         <div>
-                        <form method="post">
+                        <form action="../st_functions.php" method="post">
                           <input type='hidden' name='storyid' value="<?php echo $row["id"];?>" />
-                      <button type="submit" style="float: right;" >
+                      <button name="deletestory" type="submit" style="float: right;" >
                         <i class="fa-solid fa-trash-can" ></i>
                             </button>
                         </form>
@@ -191,7 +187,7 @@ session_start();
                 <div class="modal-body">
                   <!-- GET CONTENT FOR LOREM -->
                   <p>Lorem ipsum dolor sit amet consectetur.</p>
-                  <form method="POST" enctype="multipart/form-data">
+                  <form action="../functions.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="img">Profile Picture</label>
                             <input type="hidden" id="imagename" name="imagename" value="<?php echo $check_login['ProfileImage'];?>"  class="form-control" required>
@@ -229,23 +225,23 @@ session_start();
                   <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
-                <form method="POST">
-                    <div class="form-group">       
-                      <label>Old Password</label>
-                      <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
-                    </div>
-                    <div class="form-group">       
-                        <label>New Password</label>
-                        <input type="password" name="password" placeholder="New Password" id="newpassword" class="form-control">
-                      </div>
-                      <div class="form-group">       
-                        <label>Confirm New Password</label>
-                        <input type="password" name="confirmpassword" placeholder="Confirm New Password" id="confirnnewpassword" class="form-control">
-                      </div>
-                    <div class="form-group">
-                      <input type="submit" name="changePassword" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
-                    </div>
-                  </form>
+                <form action="../functions.php" method="POST">
+                        <div class="form-group">
+                            <label>Old Password</label>
+                            <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" name="password" placeholder="New Password" id="newpassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" name="confirmpassword" placeholder="Confirm New Password" id="confirnnewpassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="changePassword" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
@@ -315,6 +311,7 @@ session_start();
         </footer>
       </div>
     </div>
+    <script src="../vendor/sweetalert/sweetalert.min.js"></script>
     <!-- JavaScript files-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/popper.js/umd/popper.min.js"> </script>
@@ -346,6 +343,7 @@ session_start();
          $("#myStoriesTable").dataTable();
        } );
      </script> -->
+     <?php include("../footer.php")?>
 
 
   </body>

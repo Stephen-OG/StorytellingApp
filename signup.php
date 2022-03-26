@@ -1,10 +1,7 @@
 <?php
-session_start();
-
       include("connection.php");
       include("functions.php");
 
-      $user_registration = signup_data($con);
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,7 +51,7 @@ session_start();
             <h1 class="text-base text-primary text-uppercase mb-4">Sign Up</h1>
             <h2 class="mb-4">Welcome!</h2>
             <p class="text-muted">Sign up now to seek stories.</p>
-            <form id="signUpForm" class="mt-4" method="post">
+            <form action="functions.php" id="signUpForm" class="mt-4" method="post">
               <div class="form-group mb-4">
                 <input type="text" id="firstname" name="firstname" placeholder="Firstname" class="form-control border-0 shadow form-control-lg" required>
               </div>
@@ -100,5 +97,7 @@ session_start();
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="js/front.js"></script>
+
+    <?php include("footer.php")?>
   </body>
 </html>

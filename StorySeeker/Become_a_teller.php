@@ -1,7 +1,5 @@
 <?php
-session_start();
-
-      include("../connection.php");
+    include("../connection.php");
       include("../functions.php");
       include("../ss_functions.php");
 
@@ -80,5 +78,7 @@ session_start();
     <script src="../vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script src="../js/front.js"></script>
+    <?php include("../footer.php")?>
+
   </body>
 </html>

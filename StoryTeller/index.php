@@ -1,14 +1,12 @@
 <?php
-session_start();
-
       include("../connection.php");
       include("../functions.php");
       include("../st_functions.php");
 
 
       $check_login = user_login_check($con);
-      $update_profile = updateProfile($con);
-      $change_password = change_password($con);
+      //$update_profile = updateProfile($con);
+      //$change_password = change_password($con);
       $published_stories = published_stories($con);
       $pending_stories = pending_stories($con);
       $rejected_stories = rejected_stories($con);
@@ -190,7 +188,7 @@ session_start();
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                   <p>Lorem ipsum dolor sit amet consectetur.</p>
-                  <form method="POST" enctype="multipart/form-data">
+                  <form action="../functions.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="img">Profile Picture</label>
                             <input type="hidden" id="imagename" name="imagename" value="<?php echo $check_login['ProfileImage'];?>"  class="form-control" required>
@@ -230,23 +228,23 @@ session_start();
                 <div class="modal-body">
                     <!-- GET CONTENT FOR LOREM -->
                   <p>Lorem ipsum dolor sit amet consectetur.</p>
-                  <form method="POST">
-                    <div class="form-group">       
-                      <label>Old Password</label>
-                      <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
-                    </div>
-                    <div class="form-group">       
-                        <label>New Password</label>
-                        <input type="password" name="password" placeholder="New Password" id="newpassword" class="form-control">
-                      </div>
-                      <div class="form-group">       
-                        <label>Confirm New Password</label>
-                        <input type="password" name="confirmpassword" placeholder="Confirm New Password" id="confirnnewpassword" class="form-control">
-                      </div>
-                    <div class="form-group">
-                      <input type="submit" name="changePassword" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
-                    </div>
-                  </form>
+                  <form action="../functions.php" method="POST">
+                        <div class="form-group">
+                            <label>Old Password</label>
+                            <input type="password" name="currentpassword" placeholder="Old Password" id="oldpassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" name="password" placeholder="New Password" id="newpassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm New Password</label>
+                            <input type="password" name="confirmpassword" placeholder="Confirm New Password" id="confirnnewpassword" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="changePassword" id="btnchangepassword" value="Save Changes" class="btn btn-primary">
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
@@ -289,6 +287,7 @@ session_start();
       </div>
     </div>
     <!-- JavaScript files-->
+    <script src="../vendor/sweetalert/sweetalert.min.js"></script>
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/popper.js/umd/popper.min.js"> </script>
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -307,6 +306,8 @@ session_start();
         document.getElementById('profileImage').src="../img/avatar-6.jpg"; 
       }
 </script>
+<?php include("../footer.php")?>
+
   </body>
 </html>
     
