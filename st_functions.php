@@ -121,7 +121,7 @@
 				$_SESSION['status'] = "Deleted Successfully";
 		    	$_SESSION['status_code'] = "success";
             	
-				header("Location:StoryTeller/index.php");  
+				header("Location:StoryTeller/index.php"); 
 
 			}
 		}

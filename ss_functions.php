@@ -131,7 +131,7 @@ function become_a_story_teller($con)
     {
         if(isset($_SESSION['id']))
 		{
-            $id = $_SESSION['id'];        
+            $id = $_SESSION['id']; 
             $become_teller = $_POST['isStoryTeller'];
         
         mysqli_query($con,"UPDATE users set isStoryTeller='$become_teller' WHERE id = '$id'");				

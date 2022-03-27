@@ -2,9 +2,9 @@
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 
-	// require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/Exception.php';
-	// require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/PHPMailer.php';
-	// require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/SMTP.php';
+	require_once 'PHPMailer-master/src/Exception.php';
+	require_once 'PHPMailer-master/src/PHPMailer.php';
+	require_once 'PHPMailer-master/src/SMTP.php';
 
 		if(isset($_POST['btnSubmitForm'])){
 			include("connection.php");
@@ -25,16 +25,6 @@
 			}else{
 
 				$hashed_password = password_hash($password, PASSWORD_DEFAULT);			
-
-			// if ($first_name == "" || $last_name == "" || $email == "" || $hashed_password == "" ) {
-			// 	$msg = "<script>alert('There are no fields to generate a report')</Script>";
-			// 	  return $msg;
-			// }
-
-			// if(empty($email) && empty($password) )
-			// {
-			// 	echo "<script>alert('There are no fields to generate a report');</script>"; 
-			// }
 
 				$result = mysqli_query($con, "SELECT * FROM users WHERE Email='$email' ");
 
@@ -190,15 +180,25 @@
 				if(!uploadFile()){
 					$filename = $_POST['imagename'];
 				}
-				mysqli_query($con,"UPDATE users set FirstName='$first_name', LastName='$last_name', ProfileImage='$filename' WHERE id = '$id'");				
-				$_SESSION['status'] = "Profile Updated ";
-				$_SESSION['status_code'] = "success";
-				if($user_data['isStorySeeker'] == 1 && $user_data['isStoryTeller'] == 0){
-					header("Location:StorySeeker/index.php");
+				$result = mysqli_query($con,"UPDATE users set FirstName='$first_name', LastName='$last_name', ProfileImage='$filename' WHERE id = '$id'");
+				if($result){
+					$id = $_SESSION['id'];	
+					$user = mysqli_query($con, "SELECT * FROM users WHERE id='$id' LIMIT 1");
+					$user_data = mysqli_fetch_assoc($user);
+
+					$_SESSION['status'] = "Profile Updated ";
+					$_SESSION['status_code'] = "success";
+					if($user_data['isStorySeeker'] == 1 && $user_data['isStoryTeller'] == 0)
+					{
+						header("Location:StorySeeker/index.php");
 					}
-					else{
+					elseif($user_data['isStorySeeker'] == 1 && $user_data['isStoryTeller'] == 1){ 
+						$_SESSION['status'] = "Profile Updated ";
+						$_SESSION['status_code'] = "success";
 						header("Location:StoryTeller/index.php");
 					}
+				}				
+				
 			}
 
 		}

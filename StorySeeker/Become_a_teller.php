@@ -49,7 +49,7 @@
           <div class="col-lg-5 px-lg-4">
             <h1 class="text-base text-primary text-uppercase mb-4">Become a Story Teller</h1>
             <h2 class="mb-4">Welcome!</h2>
-            <p class="text-muted">Are you sure you want to Become a story teller?</p>
+            <p class="text-muted">Are you sure you want to become a story teller?</p>
             <form id="BeATeller" class="mt-4" method="post">
               <div class="custom-control custom-checkbox">
                 <input id="customCheck1" type="checkbox" checked class="custom-control-input">

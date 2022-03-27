@@ -12,23 +12,23 @@
 //mysql://b37a73a55c7d50:73c5aa93@us-cdbr-east-05.cleardb.net/heroku_20c389206e5f6d4?reconnect=true
 session_start();
 
-// $dbhost = "localhost";
-// $dbuser = "root";
-// $dbpass = "";
-// $dbname ="storytellingdb";
-// if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
-// {
-// 	die("failed to connect!");
-// }
-
-$dbhost = "us-cdbr-east-05.cleardb.net";
-$dbuser = "b37a73a55c7d50";
-$dbpass = "73c5aa93";
-$dbname ="heroku_20c389206e5f6d4";
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "";
+$dbname ="storytellingdb";
 if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
 {
 	die("failed to connect!");
 }
+
+// $dbhost = "us-cdbr-east-05.cleardb.net";
+// $dbuser = "b37a73a55c7d50";
+// $dbpass = "73c5aa93";
+// $dbname ="heroku_20c389206e5f6d4";
+// if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
+// {
+// 	die("failed to connect!");
+// }
 
 //r+=5G)B0pk=sxi++
 // $dbhost = "ec2-3-229-161-70.compute-1.amazonaws.com";
