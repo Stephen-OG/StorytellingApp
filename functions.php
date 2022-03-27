@@ -2,9 +2,9 @@
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 
-	require 'PHPMailer-master/src/Exception.php';
-	require 'PHPMailer-master/src/PHPMailer.php';
-	require 'PHPMailer-master/src/SMTP.php';
+	require $_SERVER['DOCUMENT_ROOT'].'PHPMailer-master/src/Exception.php';
+	require $_SERVER['DOCUMENT_ROOT'].'PHPMailer-master/src/PHPMailer.php';
+	require $_SERVER['DOCUMENT_ROOT'].'PHPMailer-master/src/SMTP.php';
 
 		if(isset($_POST['btnSubmitForm'])){
 			include("connection.php");
@@ -85,7 +85,7 @@
 			}				
 		}
 
-		
+
 	if(isset($_POST['loginbtn'])){
 		{
 			include("connection.php");
