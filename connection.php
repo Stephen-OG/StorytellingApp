@@ -9,16 +9,27 @@
 // 	catch(PDOException $e){
 // 		die("Error Connecting: ".$e->getMessage());
 // 	}
+//mysql://b37a73a55c7d50:73c5aa93@us-cdbr-east-05.cleardb.net/heroku_20c389206e5f6d4?reconnect=true
 session_start();
 
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname ="storytellingdb";
+// $dbhost = "localhost";
+// $dbuser = "root";
+// $dbpass = "";
+// $dbname ="storytellingdb";
+// if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
+// {
+// 	die("failed to connect!");
+// }
+
+$dbhost = "us-cdbr-east-05.cleardb.net";
+$dbuser = "b37a73a55c7d50";
+$dbpass = "73c5aa93";
+$dbname ="heroku_20c389206e5f6d4";
 if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
 {
 	die("failed to connect!");
 }
+
 //r+=5G)B0pk=sxi++
 // $dbhost = "ec2-3-229-161-70.compute-1.amazonaws.com";
 // $dbuser = "ybcjbbpiblesnb";
@@ -28,26 +39,4 @@ if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
 // {
 
 // 	die("failed to connect!" . pg_last_error());
-// }
-
-// $dbhost = "ec2-3-229-161-70.compute-1.amazonaws.com";
-// $dbuser = "ybcjbbpiblesnb";
-// $dbpass = "2b1cadff8ddc6cd7f60dfc0f6cdae776514f12b36037fbc11dfdbb4326f784d7";
-// $dbname ="d7lbfths0sm7un";
-// $port = "5432";
-
-// try {
-// 	//$dsn = "pgsql:host=" . $dbhost .";port=" . $port. ";dbname=" . $dbname .";";
-// 	$dsn = "pgsql:host='$dbhost';port='$port';dbname='$dbname'";
-// 	$con = new PDO($dsn, $dbuser, $dbpass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-// 	 if ($con) {
-// 	 	echo "Connected to the database successfully!";
-// 	 }
-// }
-// catch (PDOException $e) {
-// 	die($e->getMessage());
-// } finally {
-// 	if ($con) {
-// 		$con = null;
-// 	}
 // }
