@@ -2,9 +2,9 @@
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 
-	require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/Exception.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/PHPMailer.php';
-	require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/SMTP.php';
+	// require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/Exception.php';
+	// require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/PHPMailer.php';
+	// require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/SMTP.php';
 
 		if(isset($_POST['btnSubmitForm'])){
 			include("connection.php");
@@ -69,7 +69,7 @@
 
 					if(mysqli_query($con,$query))
 					{
-						email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signup confirmed');
+						//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signup confirmed');
 						$_SESSION['status'] = "Registered Successfully";
 						$_SESSION['status_code'] = "success";
 						header("Location:signin.php");
