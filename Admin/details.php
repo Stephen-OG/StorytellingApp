@@ -3,12 +3,10 @@
             include("../connection.php");
             include("../functions.php");
             include("../st_functions.php");
-            include("../ss_functions.php");
             include("../admin_functions.php");
         
             $story = get_story_by_id($con);
-            $approve = approve_story($con);
-            $disapprove = disapprove_story($con);
+            
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,23 +53,6 @@
     <link rel="stylesheet" type="text/css" href="../fashe/css/main.css">
     <!--===============================================================================================-->
 
-
-
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <!-- jQuery Datatable -->
-    <link rel="stylesheet" href="../css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" />
-    <link href="../css/dataTables.bootstrap.css" rel="stylesheet" />
-    <style>
-        a .underline:hover {
-            text-decoration: underline;
-        }
-    </style>
-
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> -->
-
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
@@ -101,18 +82,6 @@
                 href="index.php?adminid=39" class="navbar-brand font-weight-bold text-uppercase text-base">Story Telling App</a>
             <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
 
-
-                <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img
-                            src="../img/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;"
-                            class="img-fluid rounded-circle shadow"></a>
-                    <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong
-                                class="d-block text-uppercase headings-font-family"><?php echo $admin_check['FirstName'];?>  <?php echo $admin_check['LastName'];?></strong><small>Admin</small></a>
-                        
-                        <div class="dropdown-divider"></div>
-                        <a href="../index.php" class="dropdown-item">Logout</a>
-                    </div>
-                </li>
             </ul>
         </nav>
     </header>
@@ -130,10 +99,6 @@
                             class="o-user-1 mr-3 text-gray"></i><span>Users</span></a></li>
 
             </ul>
-            <!-- <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">EXTRAS</div>
-        <ul class="sidebar-menu list-unstyled">
-              <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-database-1 mr-3 text-gray"></i><span>Ratings and Reviews</span></a></li>
-        </ul> -->
         </div>
         <div class="page-holder w-100 d-flex flex-wrap">
             <div class="container-fluid px-xl-5">
@@ -372,7 +337,7 @@
         </div>
     </div>
     <!-- JavaScript files-->
-    <script>
+    <!-- <script>
         $(document).ready(function () {
             $('#storiesTable').DataTable({
                 "paging": true,
@@ -388,7 +353,7 @@
                 "pagingType": "full_numbers"
             });
         });
-    </script>
+    </script> -->
     <script src="../vendor/sweetalert/sweetalert.min.js"></script>
     <script src="../custom/custom.js"></script>
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -397,17 +362,8 @@
     <script src="../vendor/jquery.cookie/jquery.cookie.js"> </script>
     <script src="../vendor/chart.js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <!--Data Table-->
-    <script src="../scripts/jquery.dataTables.min.js"></script>
-    <script src="../scripts/dataTables.bootstrap.js"></script>
-    <script src="../scripts/jquery.dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js"></script>
-    <script src="../scripts/jquery.buttons.html5.min.js"></script>
-    <script src="../scripts/jquery.jszip.min.js"></script>
-    <script src="../scripts/jquery.buttons.print.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="../js/front.js"></script>
+    <?php include("../footer.php")?>
 </body>
 
 </html>

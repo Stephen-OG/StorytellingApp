@@ -1,5 +1,4 @@
 <?php
-session_start();
 
       include("../connection.php");
       include("../functions.php");
@@ -128,14 +127,14 @@ session_start();
                             <div
                                 class="bg-white shadow roundy p-4 h-100 d-flex align-items-center justify-content-between">
                                 <div class="flex-grow-1 d-flex align-items-center">
-                                    <div class="dot mr-3 bg-orange"></div>
+                                    <div class="dot mr-3 bg-red"></div>
                                     <div class="text" style="margin-left: 4px;">
                                         <h6 class="mb-0" style="color: #212529; text-align: left; margin-left: 4px;">
                                             Disapproved Stories</h6><span class="text-gray"
                                             style="font-size:smaller; float: left; margin-left: 4px;"><?php echo $rejected_stories;?> / <?php echo $total_stories;?></span>
                                     </div>
                                 </div>
-                                <div class="icon text-white bg-orange"><i class="fas fa-exclamation-circle"></i></div>
+                                <div class="icon text-white bg-red"><i class="fas fa-exclamation-circle"></i></div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
@@ -450,6 +449,7 @@ session_start();
         document.getElementById('profileImage').src="../img/avatar-6.jpg"; 
       }
     </script>
+    <?php include("../footer.php")?>
    
 </body>
 

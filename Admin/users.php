@@ -1,19 +1,14 @@
 <?php
-session_start();
 
       include("../connection.php");
       include("../functions.php");
       include("../admin_functions.php");
       
-      $admin_check = get_admin_by_id($con);
       $story_teller = get_storyteller_by_id($con);
       $published_stories = published__stories($con);
       $pending_stories = pending__stories($con);
       $rejected_stories = rejected__stories($con);
       $total_stories = storytellertotal__stories($con);
-
-      $activate_user = activate_user($con);
-      $deactivate_user = deactivate_user($con)
 
 ?>
 <!DOCTYPE html>
@@ -59,11 +54,11 @@ session_start();
   <header class="header">
     <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#"
         class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a
-        href="../index.php?adminid=39" class="navbar-brand font-weight-bold text-uppercase text-base">Story Telling App</a>
+        href="index.php?adminid=39" class="navbar-brand font-weight-bold text-uppercase text-base">Story Telling App</a>
       <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
 
 
-        <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown"
+        <!-- <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="../img/avatar-6.jpg"
               alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
           <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong
@@ -71,7 +66,7 @@ session_start();
             <div class="dropdown-divider"></div>
             <a href="../index.php" class="dropdown-item">Logout</a>
           </div>
-        </li>
+        </li> -->
       </ul>
     </nav>
   </header>
@@ -120,7 +115,7 @@ session_start();
                       </h2><span
                       class="text-muted text-uppercase small">Story Teller</span>
                     <hr>
-                    <form method="post">
+                    <form action="../admin_functions.php" method="post">
                     <input type='hidden' name='userid' value="<?php echo $story_teller['id'];?>" />
                     <button name="activatebtn" type="submit" class="btn btn-primary">Activate</button>
                     <button name="deactivatebtn" type="submit" class="btn btn-secondary">Deactivate</button>
@@ -419,7 +414,7 @@ session_start();
     </div>
   </div>
   <!-- JavaScript files-->
-  <script src="vendor/sweetalert/sweetalert.min.js"></script>
+  <script src="../vendor/sweetalert/sweetalert.min.js"></script>
   <script src="../custom/custom.js"></script>
   <script src="../vendor/jquery/jquery.min.js"></script>
   <script src="../vendor/popper.js/umd/popper.min.js"> </script>
@@ -428,17 +423,8 @@ session_start();
   <script src="../vendor/chart.js/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script src="../js/front.js"></script>
-  <script type='text/javascript'>
-      //use alternative image if Profile Image not found
-      document.getElementById('profileImage').src="../uploads/<?php echo $story_teller['ProfileImage'];?>";
 
-      document.getElementById('profileImage').onload = function() { 
-      }
-
-      document.getElementById('profileImage').onerror = function() { 
-        document.getElementById('profileImage').src="../img/avatar-1.jpg"; 
-      }
-    </script>
+    <?php include("../footer.php")?>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-    include("connection.php");
+    //include("connection.php");
 
 function get_admin_by_id($con){
     // Initialize URL to the variable
@@ -24,8 +24,8 @@ function get_admin_by_id($con){
             return $user_data;
         }
         //redirect to login
-		header("Location:index.php");
-		die;
+		//header("Location:index.php");
+		//die;
 }
 
 function get_storyteller_by_id($con){
@@ -182,42 +182,53 @@ function admin_published_stories($con)
 			return $count;
     }
 
-    function approve_story($con) {
         if(isset($_POST['approvebtn']) )
 		{
+            include("connection.php");
             $story = $_POST['storyid'];
             mysqli_query($con,"UPDATE stories set StoryStatus='Approved' WHERE id = '$story'");
-            echo "<script>alert('Story Approved')</script>";       
+            
+            $_SESSION['status'] = "Story Approved";
+		    $_SESSION['status_code'] = "success";
+            header("Location:./details.php?storyid=$story");      
 
         }
-    }
 
-    function disapprove_story($con){
+
         if(isset($_POST['disapprovebtn']) )
 		{
+            include("connection.php");
             $story = $_POST['storyid'];
             mysqli_query($con,"UPDATE stories set StoryStatus='Rejected' WHERE id = '$story'");
-            echo "<script>alert('Story Disapproved')</script>";
-            //echo "<script src'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Rejected', '', 'error')</script>";
-        }
-    }
+            
+            $_SESSION['status'] = "Story Disapproved";
+		    $_SESSION['status_code'] = "success";         
+            header("Location:./details.php?storyid=$story");
+            
 
-    function activate_user($con) {
+        }
+
+
         if(isset($_POST['activatebtn']) )
 		{
+            include("connection.php");
             $user = $_POST['userid'];
             mysqli_query($con,"UPDATE users set isActive=1 WHERE id = '$user'");
-            echo "<script>alert('User Activated')</script>";       
+
+            $_SESSION['status'] = "User Activated";
+		    $_SESSION['status_code'] = "success";
+            header("Location:./Admin/users.php?userid=$user");   
 
         }
-    }
 
-    function deactivate_user($con) {
         if(isset($_POST['deactivatebtn']) )
 		{
+            include("connection.php");
             $user = $_POST['userid'];
             mysqli_query($con,"UPDATE users set isActive=0 WHERE id = '$user'");
-            echo "<script>alert('User Deactivated')</script>";       
+
+            $_SESSION['status'] = "User Deactivated";
+		    $_SESSION['status_code'] = "success";
+            header("Location:./Admin/users.php?userid=$user");   
 
         }
-    }
