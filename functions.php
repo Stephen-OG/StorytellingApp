@@ -2,9 +2,9 @@
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 
-	require $_SERVER['DOCUMENT_ROOT'].'PHPMailer-master/src/Exception.php';
-	require $_SERVER['DOCUMENT_ROOT'].'PHPMailer-master/src/PHPMailer.php';
-	require $_SERVER['DOCUMENT_ROOT'].'PHPMailer-master/src/SMTP.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/Exception.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/PHPMailer.php';
+	require_once $_SERVER['DOCUMENT_ROOT'].'/PHPMailer-master/src/SMTP.php';
 
 		if(isset($_POST['btnSubmitForm'])){
 			include("connection.php");
