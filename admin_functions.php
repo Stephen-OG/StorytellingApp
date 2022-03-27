@@ -1,5 +1,4 @@
 <?php
-    //include("connection.php");
 
 function get_admin_by_id($con){
     // Initialize URL to the variable
@@ -182,9 +181,12 @@ function admin_published_stories($con)
 			return $count;
     }
 
+    // approve story
         if(isset($_POST['approvebtn']) )
 		{
             include("connection.php");
+            // include("functions.php");
+
             $story = $_POST['storyid'];
             mysqli_query($con,"UPDATE stories set StoryStatus='Approved' WHERE id = '$story'");
             
@@ -195,40 +197,64 @@ function admin_published_stories($con)
         }
 
 
+        //disapprove story
         if(isset($_POST['disapprovebtn']) )
 		{
             include("connection.php");
-            $story = $_POST['storyid'];
-            mysqli_query($con,"UPDATE stories set StoryStatus='Rejected' WHERE id = '$story'");
+            //include("functions.php");
+
+            $story_id = $_POST['storyid'];
+            mysqli_query($con,"UPDATE stories set StoryStatus='Rejected' WHERE id = '$story_id'");
+            // $result = mysqli_query($con,"SELECT * FROM stories WHERE id = '$user_id'");
+            // $story_data = mysqli_fetch_assoc($result);
+
+            // $user = mysqli_query($con,"SELECT * FROM users WHERE id = '$story_data[UserId]'");
+            // $user_data = mysqli_fetch_assoc($user);
+
+            // //email_sender($user_data['Email'], $user_data['FirstName'], "Hi $user_data[FirstName],<br>Your story Titled $story_data[Title] has been approved.",'Story Approved');
+
             
             $_SESSION['status'] = "Story Disapproved";
 		    $_SESSION['status_code'] = "success";         
-            header("Location:./details.php?storyid=$story");
+            header("Location:./details.php?storyid=$story_id");
             
 
         }
 
 
+        //approve user
         if(isset($_POST['activatebtn']) )
 		{
             include("connection.php");
-            $user = $_POST['userid'];
-            mysqli_query($con,"UPDATE users set isActive=1 WHERE id = '$user'");
+            include("functions.php");
+            $user_id = $_POST['userid'];
+            mysqli_query($con,"UPDATE users set isActive=1 WHERE id = '$user_id'");
+            $result = mysqli_query($con,"SELECT * FROM users WHERE id = '$user_id'");
+            $user_data = mysqli_fetch_assoc($result);
+
+            email_sender($user_data['Email'], $user_data['FirstName'], "Hi $user_data[FirstName],<br>Your account has been activated.",'Acount confirmed');
 
             $_SESSION['status'] = "User Activated";
 		    $_SESSION['status_code'] = "success";
-            header("Location:./Admin/users.php?userid=$user");   
+            header("Location:./Admin/users.php?userid=$user_id");   
 
         }
 
+        //disapprove user
         if(isset($_POST['deactivatebtn']) )
 		{
             include("connection.php");
-            $user = $_POST['userid'];
-            mysqli_query($con,"UPDATE users set isActive=0 WHERE id = '$user'");
+            include("functions.php");
+
+            $user_id = $_POST['userid'];
+            mysqli_query($con,"UPDATE users set isActive=0 WHERE id = '$user_id'");
+            $result = mysqli_query($con,"SELECT * FROM users WHERE id = '$user_id'");
+            $user_data = mysqli_fetch_assoc($result);
+
+            email_sender($user_data['Email'], $user_data['FirstName'], "Hi $user_data[FirstName],<br>You Account has been deactivated.",'Acount Deactivated');
 
             $_SESSION['status'] = "User Deactivated";
 		    $_SESSION['status_code'] = "success";
-            header("Location:./Admin/users.php?userid=$user");   
+            header("Location:./Admin/users.php?userid=$user_id");   
 
         }

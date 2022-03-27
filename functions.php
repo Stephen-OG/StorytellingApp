@@ -69,7 +69,7 @@
 
 					if(mysqli_query($con,$query))
 					{
-						//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signup confirmed');
+						email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signup confirmed');
 						$_SESSION['status'] = "Registered Successfully";
 						$_SESSION['status_code'] = "success";
 						header("Location:signin.php");
@@ -81,14 +81,11 @@
 						//echo "<script>alert('failed to add')</script>";
 					}	
 
-				//echo '<script> alert("Registered successfully!");document.location="signin.php"</script>';
-				//echo '<script></script>';
-				//die;
 			}
 			}				
 		}
-	// }
 
+		
 	if(isset($_POST['loginbtn'])){
 		{
 			include("connection.php");

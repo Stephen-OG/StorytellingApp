@@ -423,7 +423,17 @@
   <script src="../vendor/chart.js/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script src="../js/front.js"></script>
+  <script type='text/javascript'>
+      //use alternative image if Profile Image not found
+      document.getElementById('profileImage').src="../uploads/<?php echo $story_teller['ProfileImage'];?>";
 
+      document.getElementById('profileImage').onload = function() { 
+      }
+
+      document.getElementById('profileImage').onerror = function() { 
+        document.getElementById('profileImage').src="../img/avatar-1.jpg"; 
+      }
+    </script>
     <?php include("../footer.php")?>
 </body>
 
