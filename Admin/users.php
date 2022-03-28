@@ -3,11 +3,13 @@
       include("../connection.php");
       include("../functions.php");
       include("../admin_functions.php");
-      
+
       $story_teller = get_storyteller_by_id($con);
-      $published_stories = published__stories($con);
-      $pending_stories = pending__stories($con);
-      $rejected_stories = rejected__stories($con);
+      $published_stories = admin_published__stories($con);
+      $pending_stories = admin_pending__stories($con);
+      $rejected_stories = admin_rejected__stories($con);
+      $reviews = admin_ratings_Reviews($con);
+      $my_reviews = my_reviews($con);
       $total_stories = storytellertotal__stories($con);
 
 ?>
@@ -123,9 +125,9 @@
                     </form>
                   </div>
                   <div class="col-lg-2">
-                    <h2 class="mb-0 d-flex align-items-center"><span>86%</span><span
+                    <!-- <h2 class="mb-0 d-flex align-items-center"><span>86%</span><span
                         class="dot bg-green d-inline-block ml-3"></span></h2><span
-                      class="text-muted text-uppercase small">Average Ratings</span>
+                      class="text-muted text-uppercase small">Average Ratings</span> -->
                     <!-- <hr> -->
                     <!-- <button class="btn btn-primary">Activate</button>
                             <button class="btn btn-secondary">Deactivate</button>  -->
@@ -183,7 +185,7 @@
                   <div class="dot mr-3 bg-blue"></div>
                   <div class="text" style="margin-left: 4px;">
                     <h6 class="mb-0" style="color: #212529; text-align: left; margin-left: 4px;">Ratings & Reviews</h6>
-                    <span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;">4</span>
+                    <span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;"><?php echo $reviews;?></span>
                   </div>
                 </div>
                 <div class="icon text-white bg-blue"><i class="fas fa-star"></i></div>
@@ -194,110 +196,91 @@
         </section>
 
         <section class="py-5">
-          <div class="card-header">
-            <h2 class="h6 mb-0 text-uppercase">Ratings and Reviews history</h2>
-          </div>
-          <div class="row">
+            <div class="card-header">
+              <h2 class="h6 mb-0 text-uppercase">Ratings and Reviews history</h2>
+            </div>
+            <div class="row">
 
-            <div class="col-lg-12"><a href="#"
-                class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style">
-                <div class="row">
-                  <div class="col-lg-3 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <strong class="h5 mb-0">08<sup class="smaller text-gray font-weight-normal">Mar</sup></strong><img
-                      src="../img/avatar-1.jpg" alt="..." style="max-width: 3rem" class="rounded-circle mx-3 my-2 my-lg-0">
-                    <h6 class="mb-0">Jason Maxwell</h6>
-                  </div>
-                  <div class="col-lg-7 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">Story Seeker
+                <?php 
+                  $i=1;
+                  while($row = mysqli_fetch_array($my_reviews) )
+                {
+                ?>
+              <div class="col-lg-12"><a href="#" class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style">
+                  <div class="row">
+                    <div class="col-lg-3 d-flex align-items-center flex-column flex-lg-row text-center text-md-left"><strong class="h5 mb-0"><sup class="smaller text-gray font-weight-normal"> <?php echo $row['CreatedDate'];?>  </sup></strong>
+                    <?php 
+                            $seeker = mysqli_query($con,"SELECT * FROM users WHERE id = '$row[SeekerId]'");
+                            $seeker_data = mysqli_fetch_assoc($seeker);
+
+                            $story = mysqli_query($con,"SELECT * FROM stories WHERE id = '$row[StoryId]'");
+                            $story_data = mysqli_fetch_assoc($story);
+
+                            
+                      ?>  
+                    <h5 class="mb-0"><?php echo "$seeker_data[FirstName]" ?> <?php echo "$seeker_data[LastName]"?></h5>
                     </div>
-                    <p class="mb-0 mt-3 mt-lg-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-                  </div>
-                  <div class="col-lg-2 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
+                    <div class="col-lg-7 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
+                      <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode"><?php echo "$story_data[Title]"?></div>
+                      <p class="mb-0 mt-3 mt-lg-0"><?php echo "$row[Review]"?></p>
                     </div>
-                  </div>
-                </div>
-              </a></div>
-            <div class="col-lg-12"><a href="#"
-                class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style">
-                <div class="row">
-                  <div class="col-lg-3 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <strong class="h5 mb-0">24<sup class="smaller text-gray font-weight-normal">Feb</sup></strong><img
-                      src="../img/avatar-2.jpg" alt="..." style="max-width: 3rem" class="rounded-circle mx-3 my-2 my-lg-0">
-                    <h6 class="mb-0">Sam Andy</h6>
-                  </div>
-                  <div class="col-lg-7 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">Story Seeker
+                    <div class="col-lg-2 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
+                      <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">
+                        <?php 
+                        if($row['Rating'] == 1){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+
+                        }
+                        elseif($row['Rating'] == 2){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                        }
+                        elseif($row['Rating'] == 3){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                        }
+                        elseif($row['Rating'] == 4){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                        }
+                        elseif($row['Rating'] == 5){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                        }
+                        else{
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+
+                        }
+                        ?>
+                      </div>
                     </div>
-                    <p class="mb-0 mt-3 mt-lg-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-                  </div>
-                  <div class="col-lg-2 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                    </div>
-                  </div>
-                </div>
-              </a></div>
-            <div class="col-lg-12"><a href="#"
-                class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style">
-                <div class="row">
-                  <div class="col-lg-3 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <strong class="h5 mb-0">17<sup class="smaller text-gray font-weight-normal">Feb</sup></strong><img
-                      src="../img/avatar-3.jpg" alt="..." style="max-width: 3rem" class="rounded-circle mx-3 my-2 my-lg-0">
-                    <h6 class="mb-0">Margret Peter</h6>
-                  </div>
-                  <div class="col-lg-7 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">Story Seeker
-                    </div>
-                    <p class="mb-0 mt-3 mt-lg-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-                  </div>
-                  <div class="col-lg-2 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </div>
-                  </div>
-                </div>
-              </a></div>
-            <div class="col-lg-12"><a href="#"
-                class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style">
-                <div class="row">
-                  <div class="col-lg-3 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <strong class="h5 mb-0">15<sup class="smaller text-gray font-weight-normal">Feb</sup></strong><img
-                      src="../img/avatar-4.jpg" alt="..." style="max-width: 3rem" class="rounded-circle mx-3 my-2 my-lg-0">
-                    <h6 class="mb-0">Jason Doe</h6>
-                  </div>
-                  <div class="col-lg-7 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">Story Seeker
-                    </div>
-                    <p class="mb-0 mt-3 mt-lg-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-                  </div>
-                  <div class="col-lg-2 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </div>
-                  </div>
-                </div>
-              </a></div>
-            <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Showing 1 - 4 of 4</small>
-          </div>
-        </section>
+                  </div></a></div>
+                  <?php 
+                $i++;
+                }  ?>
+                  <small></small>
+            </div>
+          </section>
       </div>
       <!--Edit Profile Modal-->
       <div id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true"

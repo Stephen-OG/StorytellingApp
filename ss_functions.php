@@ -173,12 +173,18 @@ if(isset($_POST['reviewbtn'])){
     {
         $id = $_SESSION['id']; 
         $review_exist = mysqli_query($con,"SELECT * FROM reviews WHERE SeekerId = '$id' AND StoryId='$story_data[id]'");
-        // if($review_exist){
-        //     $_SESSION['status'] = "Story Already Reviewed";
-        //     $_SESSION['status_code'] = "success";
-        //     header("Location:storydetail.php?storyid=$story_data[id]");
-        //     die;
-        // }
+        if(mysqli_num_rows($review_exist) > 0){        
+            $_SESSION['status'] = "Story Already Reviewed";
+            $_SESSION['status_code'] = "success";
+            header("Location:storydetail.php?storyid=$story_data[id]");
+            die;
+        }
+        if($review == '' || $review == null){
+            $_SESSION['status'] = "No Comment";
+            $_SESSION['status_code'] = "error";
+            header("Location:storydetail.php?storyid=$story_data[id]");
+            die;
+        }
         mysqli_query($con, "INSERT INTO reviews (SeekerId,TellerId,StoryId,Rating,Review) VALUES ('$id','$story_data[userid]','$story_data[id]','$rating','$review')");
 
         $_SESSION['status'] = "Story Rated $rating star and Reviewed";

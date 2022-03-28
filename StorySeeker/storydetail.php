@@ -201,23 +201,23 @@
                                 </span>
 
                                 <div class="wrap-tags flex-w">
-                                    <a href="storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=1"  class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=1#"  class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         1 Star
                                     </a>
 
-                                    <a href="#storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=2" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=2#" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         2 Stars
                                     </a>
 
-                                    <a href="#storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=3" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=3#" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         3 Stars
                                     </a>
 
-                                    <a href="#storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=4" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=4#" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         4 Stars
                                     </a>
 
-                                    <a href="#storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=5" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=5#" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         5 Stars
                                     </a>
                                 </div>

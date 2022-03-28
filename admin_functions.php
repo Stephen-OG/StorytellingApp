@@ -133,7 +133,7 @@ function admin_published_stories($con)
 		return mysqli_query($con,"SELECT * FROM users WHERE isStoryTeller=1");
 	}
 
-    function published__stories($con){
+    function admin_published__stories($con){
         $story_teller = get_storyteller_by_id($con);
 
 			$count = 0;
@@ -145,7 +145,7 @@ function admin_published_stories($con)
 			return $count;
     }
 
-    function pending__stories($con){
+    function admin_pending__stories($con){
         $story_teller = get_storyteller_by_id($con);
 
 			$count = 0;
@@ -157,7 +157,7 @@ function admin_published_stories($con)
 			return $count;
     }
 
-    function rejected__stories($con){
+    function admin_rejected__stories($con){
         $story_teller = get_storyteller_by_id($con);
 
 			$count = 0;
@@ -168,6 +168,21 @@ function admin_published_stories($con)
 			} 
 			return $count;
     }
+
+    function admin_ratings_Reviews($con)
+	{
+        $story_teller = get_storyteller_by_id($con);
+
+            $count = 0;
+            $reviews = mysqli_query($con,"SELECT * FROM reviews WHERE TellerId = '$story_teller[id]'");
+                
+            while(mysqli_fetch_array($reviews) ){
+                ++$count;
+            } 
+            return $count;
+        
+	}
+
 
     function storytellertotal__stories($con){
         $story_teller = get_storyteller_by_id($con);
@@ -180,6 +195,13 @@ function admin_published_stories($con)
 			} 
 			return $count;
     }
+
+    function my_reviews($con){
+            $story_teller = get_storyteller_by_id($con);
+		    return mysqli_query($con,"SELECT * FROM reviews WHERE TellerId = '$story_teller[id]'");
+
+	}
+
 
     // approve story
         if(isset($_POST['approvebtn']) )

@@ -134,26 +134,7 @@
               <h2 class="h6 mb-0 text-uppercase">Ratings and Reviews history</h2>
             </div>
             <div class="row">
-              
-              <div class="col-lg-12"><a href="#" class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style">
-                <div class="row">
-                  <div class="col-lg-3 d-flex align-items-center flex-column flex-lg-row text-center text-md-left"><strong class="h5 mb-0">08<sup class="smaller text-gray font-weight-normal">Mar</sup></strong><img src="../img/avatar-1.jpg" alt="..." style="max-width: 3rem" class="rounded-circle mx-3 my-2 my-lg-0">
-                    <h6 class="mb-0">Jason Maxwell</h6>
-                  </div>
-                  <div class="col-lg-7 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">Story Seeker</div>
-                    <p class="mb-0 mt-3 mt-lg-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-                  </div>
-                  <div class="col-lg-2 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                    <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i style="color: #4680ff;" class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </div>
-                  </div>
-                </div></a></div>
+
                 <?php 
                   $i=1;
                   while($row = mysqli_fetch_array($my_reviews) )
@@ -179,18 +160,59 @@
                     </div>
                     <div class="col-lg-2 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                       <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">
-                        <i style="color: #4680ff;" class="fas fa-star"></i>
-                        <i style="color: #4680ff;" class="fas fa-star"></i>
-                        <i style="color: #4680ff;" class="fas fa-star"></i>
-                        <i style="color: #4680ff;" class="fas fa-star"></i>
-                        <i style="color: #4680ff;" class="fas fa-star"></i>
+                        <?php 
+                        if($row['Rating'] == 1){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+
+                        }
+                        elseif($row['Rating'] == 2){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                        }
+                        elseif($row['Rating'] == 3){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                        }
+                        elseif($row['Rating'] == 4){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                        }
+                        elseif($row['Rating'] == 5){
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                          echo '<i style="color: #4680ff;" class="fas fa-star"></i>';
+                        }
+                        else{
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+                          echo '<i class="fas fa-star"></i>';
+
+                        }
+                        ?>
                       </div>
                     </div>
                   </div></a></div>
                   <?php 
                 $i++;
                 }  ?>
-                  <small>Showing 1 - 4 of 4</small>
+                  <small></small>
             </div>
           </section>
         </div>
