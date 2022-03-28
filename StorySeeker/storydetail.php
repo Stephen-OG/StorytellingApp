@@ -5,13 +5,11 @@
         include("../ss_functions.php");
 
       $check_login = user_login_check($con);
-    //   $update_profile = updateProfile($con);
-      //$change_password = change_password($con);
       $populate_story = get_story_by_id($con);
 
       $story_user_profile = story_teller_details($con);
       $read_stories = save_read_stories($con);
-
+      $review = review_button($con);
 
 ?>
 
@@ -176,9 +174,9 @@
                                         <span class="m-l-3 m-r-6">|</span>
                                     </span>
 
-                                    <span>
+                                    <!-- <span>
                                         8 Reviews
-                                    </span>
+                                    </span> -->
                                 </div>
 
                                 <p class="p-b-25">
@@ -191,7 +189,8 @@
                         </div>
 
                         <!-- Leave a review -->
-                        <form class="leave-comment">
+                        <form class="leave-comment" method="post">
+
                             <h4 class="m-text25 p-b-14" style="font-family: 'Poppins';">
                                 Leave a Review
                             </h4>
@@ -202,23 +201,23 @@
                                 </span>
 
                                 <div class="wrap-tags flex-w">
-                                    <a href="storydetail.php?storyid=<?php echo $populate_story["id"];?>&?rating=1"  class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=1"  class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         1 Star
                                     </a>
 
-                                    <a href="?rating=2" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="#storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=2" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         2 Stars
                                     </a>
 
-                                    <a href="#" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="#storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=3" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         3 Stars
                                     </a>
 
-                                    <a href="#" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="#storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=4" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         4 Stars
                                     </a>
 
-                                    <a href="#" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
+                                    <a href="#storydetail.php?storyid=<?php echo $populate_story["id"];?>&rating=5" class="tag-item" style="text-decoration: none;" style="font-family: 'Poppins';">
                                         5 Stars
                                     </a>
                                 </div>
@@ -229,7 +228,7 @@
 
                             <div class="w-size24">
                                 <!-- Button -->
-                                <button class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4" style="font-family: 'poppins';">
+                                <button name="reviewbtn" type="submit" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4" style="font-family: 'poppins';">
                                     Post Review
                                 </button>
                             </div>
@@ -294,49 +293,6 @@
                                     Tragedy
                                 </a>
                             </li>
-                        </ul>
-
-                        <!-- Recommended Books -->
-                        <h4 class="m-text23 p-t-65 p-b-34">
-                            Recommendations
-                        </h4>
-
-                        <ul class="bgwhite">
-                            <li class="flex-w p-b-20">
-                                <a href="storydetail.html"
-                                    class="dis-block wrap-pic-w w-size22 m-r-20 trans-0-4 hov4">
-                                    <img src="../fashe/images/memory.jpg" alt="IMG-PRODUCT">
-                                </a>
-
-                                <div class="w-size23 p-t-5">
-                                    <a href="storydetail.html" class="s-text20" style="font-family: 'poppins';">
-                                        Title of Story
-                                    </a>
-
-                                    <span class="dis-block s-text17 p-t-6" style="font-family: 'poppins';">
-                                        Type of Story
-                                    </span>
-                                </div>
-                            </li>
-
-                            <li class="flex-w p-b-20">
-                                <a href="storydetail.html"
-                                    class="dis-block wrap-pic-w w-size22 m-r-20 trans-0-4 hov4">
-                                    <img src="../fashe/images/kod.jpg" alt="IMG-PRODUCT">
-                                </a>
-
-                                <div class="w-size23 p-t-5">
-                                    <a href="storydetail.html" class="s-text20" style="font-family: 'poppins';">
-                                        Title of Story
-                                    </a>
-
-                                    <span class="dis-block s-text17 p-t-6" style="font-family: 'poppins';"> 
-                                        Type of Story
-                                    </span>
-                                </div>
-                            </li>
-
-
                         </ul>
 
                      

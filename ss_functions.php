@@ -112,6 +112,7 @@ function read_stories($con){
         }
 }
 
+// delete read story
     if(isset($_POST['deleteread'])){
 		{
             include("connection.php");
@@ -140,6 +141,50 @@ function become_a_story_teller($con)
 
         header("Location:../StoryTeller/index.php");
             die;
+        }
+    }
+}
+
+// make a review 
+function review_button($con){
+if(isset($_POST['reviewbtn'])){
+
+    
+    // Initialize URL to the variable
+    // $url = 'https://www.geeksforgeeks.org/register?name=Amit&email=amit1998@gmail.com';
+    $url = $_SERVER['REQUEST_URI'];
+    // Use parse_url() function to parse the URL 
+    // and return an associative array which
+    // contains its various components
+    $url_components = parse_url($url);
+    
+    // Use parse_str() function to parse the
+    // string passed via URL
+    parse_str($url_components['query'], $params);
+    $story = $params['storyid'];
+    parse_str($url_components['query'], $params);
+
+    $rating = $params['rating'];
+
+    $review = htmlspecialchars($_POST['comment']);
+    $story = mysqli_query($con,"SELECT * FROM stories WHERE id = '$story'");
+    $story_data = mysqli_fetch_assoc($story);
+    if(isset($_SESSION['id']))
+    {
+        $id = $_SESSION['id']; 
+        $review_exist = mysqli_query($con,"SELECT * FROM reviews WHERE SeekerId = '$id' AND StoryId='$story_data[id]'");
+        // if($review_exist){
+        //     $_SESSION['status'] = "Story Already Reviewed";
+        //     $_SESSION['status_code'] = "success";
+        //     header("Location:storydetail.php?storyid=$story_data[id]");
+        //     die;
+        // }
+        mysqli_query($con, "INSERT INTO reviews (SeekerId,TellerId,StoryId,Rating,Review) VALUES ('$id','$story_data[userid]','$story_data[id]','$rating','$review')");
+
+        $_SESSION['status'] = "Story Rated $rating star and Reviewed";
+        $_SESSION['status_code'] = "success";
+        header("Location:storydetail.php?storyid=$story_data[id]");
+        die;
         }
     }
 }

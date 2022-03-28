@@ -48,6 +48,22 @@
 			}
 	}
 
+	function Ratings_Reviews($con)
+	{
+		if(isset($_SESSION['id']))
+			{
+				$id = $_SESSION['id'];
+
+				$count = 0;
+				$rejected_stories = mysqli_query($con,"SELECT * FROM reviews WHERE TellerId = '$id'");
+					
+				while(mysqli_fetch_array($rejected_stories) ){
+					++$count;
+				} 
+				return $count;
+			}
+	}
+
 	function total_stories($con)
 	{
 		if(isset($_SESSION['id']))
@@ -68,6 +84,14 @@
 			{
 				$id = $_SESSION['id'];
 				return mysqli_query($con,"SELECT * FROM stories WHERE userid = '$id'");
+			}
+	}
+
+	function my_reviews($con){
+		if(isset($_SESSION['id']))
+			{
+				$id = $_SESSION['id'];
+				return mysqli_query($con,"SELECT * FROM reviews WHERE TellerId = '$id'");
 			}
 	}
 

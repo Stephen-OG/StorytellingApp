@@ -5,12 +5,12 @@
 
 
       $check_login = user_login_check($con);
-      //$update_profile = updateProfile($con);
-      //$change_password = change_password($con);
       $published_stories = published_stories($con);
       $pending_stories = pending_stories($con);
       $rejected_stories = rejected_stories($con);
       $stories = total_stories($con);
+      $ratings_count = Ratings_Reviews($con);
+      $my_reviews = my_reviews($con);
 
 ?>
 
@@ -118,7 +118,7 @@
                   <div class="flex-grow-1 d-flex align-items-center">
                     <div class="dot mr-3 bg-blue"></div>
                     <div class="text" style="margin-left: 4px;">
-                      <h6 class="mb-0" style="color: #212529; text-align: left; margin-left: 4px;">Ratings & Reviews</h6><span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;">4</span>
+                      <h6 class="mb-0" style="color: #212529; text-align: left; margin-left: 4px;">Ratings & Reviews</h6><span class="text-gray" style="font-size:smaller; float: left; margin-left: 4px;"><?php echo $ratings_count ?></span>
                     </div>
                   </div>
                   <div class="icon text-white bg-blue"><i class="fas fa-star"></i></div>
@@ -154,14 +154,28 @@
                     </div>
                   </div>
                 </div></a></div>
+                <?php 
+                  $i=1;
+                  while($row = mysqli_fetch_array($my_reviews) )
+                {
+                ?>
               <div class="col-lg-12"><a href="#" class="message card px-5 py-3 mb-4 bg-hover-gradient-primary no-anchor-style">
                   <div class="row">
-                    <div class="col-lg-3 d-flex align-items-center flex-column flex-lg-row text-center text-md-left"><strong class="h5 mb-0">24<sup class="smaller text-gray font-weight-normal">Feb</sup></strong><img src="../img/avatar-2.jpg" alt="..." style="max-width: 3rem" class="rounded-circle mx-3 my-2 my-lg-0">
-                      <h6 class="mb-0">Sam Andy</h6>
+                    <div class="col-lg-3 d-flex align-items-center flex-column flex-lg-row text-center text-md-left"><strong class="h5 mb-0"><sup class="smaller text-gray font-weight-normal"> <?php echo $row['CreatedDate'];?>  </sup></strong>
+                    <?php 
+                            $seeker = mysqli_query($con,"SELECT * FROM users WHERE id = '$row[SeekerId]'");
+                            $seeker_data = mysqli_fetch_assoc($seeker);
+
+                            $story = mysqli_query($con,"SELECT * FROM stories WHERE id = '$row[StoryId]'");
+                            $story_data = mysqli_fetch_assoc($story);
+
+                            
+                      ?>  
+                    <h5 class="mb-0"><?php echo "$seeker_data[FirstName]" ?> <?php echo "$seeker_data[LastName]"?></h5>
                     </div>
                     <div class="col-lg-7 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
-                      <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">Story Seeker</div>
-                      <p class="mb-0 mt-3 mt-lg-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+                      <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode"><?php echo "$story_data[Title]"?></div>
+                      <p class="mb-0 mt-3 mt-lg-0"><?php echo "$row[Review]"?></p>
                     </div>
                     <div class="col-lg-2 d-flex align-items-center flex-column flex-lg-row text-center text-md-left">
                       <div class="bg-gray-100 roundy px-4 py-1 mr-0 mr-lg-3 mt-2 mt-lg-0 text-dark exclode">
@@ -173,6 +187,9 @@
                       </div>
                     </div>
                   </div></a></div>
+                  <?php 
+                $i++;
+                }  ?>
                   <small>Showing 1 - 4 of 4</small>
             </div>
           </section>
@@ -305,6 +322,7 @@
       document.getElementById('profileImage').onerror = function() { 
         document.getElementById('profileImage').src="../img/avatar-6.jpg"; 
       }
+
 </script>
 <?php include("../footer.php")?>
 
