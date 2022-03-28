@@ -20,7 +20,10 @@
 			$isActive = $_POST['isActive'];
 
 			if( $password != $confirmPassword){
-				echo 'password do not match';
+				$_SESSION['status'] = "Password Do Not Match";
+				$_SESSION['status_code'] = "error";
+				header("Location:signup.php?error=password do not match");
+
 				die;
 			}else{
 
@@ -31,10 +34,14 @@
 				$user_data = mysqli_fetch_assoc($result);
 
 				//check if the email has been used before
-				if (mysqli_num_rows($result) > 0 && $user_data['isStoryseeker'] == 1)  {
+				if (mysqli_num_rows($result) > 0 )  {
+						$_SESSION['status'] = "User Exist";
+						$_SESSION['status_code'] = "error";
 						header("Location:signup.php?error=The email already exists, please try another");
-						exit();
+						die;
 					}
+
+
 					else {
 
 					//save to database					
@@ -100,7 +107,11 @@
 					
 					if(!password_verify($password, $user_data['Password']))
 					{
-						echo 'password do not match';
+						$_SESSION['status'] = "Password Do Not Match";
+						$_SESSION['status_code'] = "error";
+						header("Location:signin.php?error=password do not match");
+						die;
+
 					}
 					else{
 						if(isset($_POST['remember']))
@@ -123,7 +134,7 @@
 						}
 						elseif($user_data['isStoryTeller']== 0 && $user_data['isStorySeeker'] == 1){
 							//email_sender($email, $first_name, 'Hi,<br>You have just signed up on the Story Telling app.','Signin confirmed');
-							$_SESSION['status'] = "Loggen In";
+							$_SESSION['status'] = "Logged In";
 							$_SESSION['status_code'] = "success";
 							header("Location:StorySeeker/index.php");
 							die;

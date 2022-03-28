@@ -99,8 +99,10 @@ function save_read_stories($con) {
                 echo "<script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js'>swal('Story added', '', 'success')</script>";
 
                 }
+                else{
                 mysqli_query($con, "INSERT INTO user_read_stories (UserId,StoryId) VALUES ('$user_id','$result[id]')");
             }
+        }
 }
 
 function read_stories($con){

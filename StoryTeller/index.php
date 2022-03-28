@@ -2,7 +2,7 @@
       include("../connection.php");
       include("../functions.php");
       include("../st_functions.php");
-
+      
 
       $check_login = user_login_check($con);
       $published_stories = published_stories($con);

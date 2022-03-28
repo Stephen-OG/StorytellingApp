@@ -180,11 +180,10 @@
 
 									<span>
 										<?php echo $story_data['Category']; ?>
-										<span class="m-l-3 m-r-6">|</span>
+										<span class="m-l-3 m-r-6"></span>
 									</span>
 
 									<span>
-										8 Reviews
 									</span>
 								</div>
 

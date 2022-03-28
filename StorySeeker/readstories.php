@@ -186,11 +186,10 @@
 
 									<span>
 										<?php echo $story_data['Category']; ?>
-										<span class="m-l-3 m-r-6">|</span>
+										<span class="m-l-3 m-r-6"></span>
 									</span>
 
 									<span>
-										8 Reviews
 									</span>
 								</div>
 
@@ -199,7 +198,7 @@
                                 <?php echo $story_data['Body']; ?>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce eget dictum tortor. Donec dictum vitae sapien eu varius
 								</p>
 
-								<a href="storydetail.php?storyid=<?php echo $story_data["id"];?>" class="s-text20" style="font-family: 'Poppins';">
+								<a href="storydetail.php?storyid=<?php echo $story_data["id"];?>#" class="s-text20" style="font-family: 'Poppins';">
 									Read Now
 									<i class="fas fa-arrow-right" aria-hidden="true"></i>
 								</a>

@@ -5,6 +5,7 @@ include("../st_functions.php");
 include("../ss_functions.php");
 
 
+
 $check_login = user_login_check($con);
 // $update_profile = updateProfile($con);
 //$change_password = change_password($con);
@@ -257,65 +258,6 @@ $save_story = save_story($con);
     </div>
 
 
-    <!-- top picks for you -->
-    <section class="bgwhite p-t-45 p-b-58">
-        <div class="container">
-            <div class="sec-title p-b-22">
-                <h3 class="m-text5 t-center">
-                    Top Picks For You
-                </h3>
-            </div>
-
-            <!-- Tab01 -->
-            <div class="tab01">
-                <!-- Nav tabs -->
-
-
-                <!-- Tab panes -->
-                <div class="tab-content p-t-35">
-                    <!-- - -->
-                    <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
-                                <!-- Block2 -->
-                                <div class="block2">
-                                    <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-                                        <img src="../fashe/images/kod.jpg" alt="IMG-PRODUCT">
-
-                                        <div class="block2-overlay trans-0-4">
-                                            <a type="submit" class="block2-btn-addwishlist hov-pointer trans-0-4">
-                                                <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-                                                <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-                                            </a>
-                                            <div class="block2-btn-addcart w-size1 trans-0-4">
-                                                <!-- Button -->
-                                                <a href="storydetail.php" style="text-decoration: none; font-family: 'poppins';" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-                                                    Read Now
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="block2-txt p-t-20">
-                                        <a href="storydetail.php" class="block2-name dis-block s-text3 p-b-5" style="font-family: 'poppins';">
-                                            Title of story
-                                        </a>
-
-                                        <span class="block2-price m-text6 p-r-5" style="font-family: 'poppins';">
-                                            Type of story
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!--New and hot -->
     <section class="bgwhite p-t-45 p-b-58">

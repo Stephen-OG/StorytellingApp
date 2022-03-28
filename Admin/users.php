@@ -9,7 +9,7 @@
       $pending_stories = admin_pending__stories($con);
       $rejected_stories = admin_rejected__stories($con);
       $reviews = admin_ratings_Reviews($con);
-      $my_reviews = my_reviews($con);
+      $my_reviews = my_reviewss($con);
       $total_stories = storytellertotal__stories($con);
 
 ?>

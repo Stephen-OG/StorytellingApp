@@ -196,7 +196,7 @@ function admin_published_stories($con)
 			return $count;
     }
 
-    function my_reviews($con){
+    function my_reviewss($con){
             $story_teller = get_storyteller_by_id($con);
 		    return mysqli_query($con,"SELECT * FROM reviews WHERE TellerId = '$story_teller[id]'");
 
